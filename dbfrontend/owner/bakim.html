@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talepler | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        /* Bu sayfaya özel stiller */
+        .request-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .request-card:hover {
+            transform: translateX(5px);
+            border-color: var(--main-color);
+            background: rgba(16, 33, 65, 0.8);
+        }
+
+        .req-info h4 {
+            margin-bottom: 5px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .req-info p {
+            color: #8d97ad;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .req-date {
+            font-size: 0.8rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .req-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Durum Rozetleri */
+        .badge-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-open {
+            background: rgba(255, 75, 92, 0.15);
+            color: #ff4b5c;
+            border: 1px solid #ff4b5c;
+        }
+
+        .status-progress {
+            background: rgba(255, 179, 0, 0.15);
+            color: #ffb300;
+            border: 1px solid #ffb300;
+        }
+
+        .status-done {
+            background: rgba(0, 200, 83, 0.15);
+            color: #00c853;
+            border: 1px solid #00c853;
+        }
+
+        .btn-edit {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .btn-edit:hover {
+            background: #00d4ff;
+            color: #fff;
+        }
+
+        /* Modal Overlay */
+        #talepModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Emlak<span>Yönetim</span></h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="mulkler.html"><i class="fa-solid fa-building"></i> Mülklerim</a></li>
+            <li><a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Sözleşmeler</a></li>
+            <li><a href="kiracilar.html"><i class="fa-solid fa-users"></i> Kiracılar</a></li>
+            <li><a href="finans.html"><i class="fa-solid fa-wallet"></i> Finans</a></li>
+            <li class="active">
+                <a href="bakim.html"><i class="fa-solid fa-screwdriver-wrench"></i> Talepler</a>
+            </li>
+            <li>
+                <a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler <span id="notificationBadge" style="display:none; background:#ff4b5c; color:#fff; border-radius:10px; padding:2px 6px; font-size:0.7rem; margin-left:5px;">0</span></a>
+            </li>
+            <li><a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a></li>
+            <li><a href="hatirlaticilar.html"><i class="fa-solid fa-bell"></i> Hatırlatıcılar</a></li>
+            <li><a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a></li>
+            <li class="logout"><a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Bakım & Talepler</h2>
+                <p>Kiracılardan gelen arıza bildirimleri</p>
+            </div>
+            <div class="user-wrapper">
+                <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Profil" id="userImg">
+                <div>
+                    <h4 id="headerUserName">Yükleniyor...</h4>
+                    <small>Mülk Sahibi</small>
+                </div>
+            </div>
+            <div style="margin-left: auto;">
+                <button onclick="openModal()" class="btn-add"
+                    style="background: linear-gradient(to right, #00c6ff, #0072ff); color: white; padding: 10px 20px; border-radius: 8px; border:none; cursor:pointer; font-weight:600;">
+                    <i class="fa-solid fa-plus"></i> Talep Oluştur
+                </button>
+            </div>
+        </header>
+
+        <div id="requestList">
+            <p style="color: #8d97ad; text-align:center; margin-top:2rem;">Yükleniyor...</p>
+        </div>
+    </div>
+
+    <div id="talepModal">
+        <div
+            style="background: #112240; padding: 2rem; border-radius: 12px; width: 450px; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
+                <h3 id="modalTitle" style="font-size:1.4rem;">Talep Yönetimi</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal()"
+                    style="cursor:pointer; font-size:1.2rem; color:#888;"></i>
+            </div>
+
+            <form id="talepForm">
+                <input type="hidden" id="editId">
+
+                <div style="margin-bottom: 1.2rem;">
+                    <label style="display:block; margin-bottom:8px; color:#ccc; font-size:0.9rem;">İlgili Mülk</label>
+                    <select id="mulkSelect" required
+                        style="width:100%; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:#fff; outline:none;">
+                        <option value="">Seçiniz...</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 1.2rem;">
+                    <label style="display:block; margin-bottom:8px; color:#ccc; font-size:0.9rem;">Sorun /
+                        Açıklama</label>
+                    <textarea id="aciklama" rows="3" required placeholder="Örn: Kombi su akıtıyor..."
+                        style="width:100%; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:#fff; outline:none; resize:vertical;"></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 1.5rem;">
+                    <div>
+                        <label style="display:block; margin-bottom:8px; color:#ccc; font-size:0.9rem;">Durum</label>
+                        <select id="durum"
+                            style="width:100%; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:#fff; outline:none;">
+                            <option value="Acik">Açık (Yeni)</option>
+                            <option value="Devam Ediyor">İşlemde</option>
+                            <option value="Tamamlandi">Tamamlandı</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display:block; margin-bottom:8px; color:#ccc; font-size:0.9rem;">Maliyet
+                            (₺)</label>
+                        <input type="number" id="tutar" placeholder="0.00"
+                            style="width:100%; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:#fff; outline:none;">
+                    </div>
+                </div>
+
+                <div style="text-align:right; border-top:1px solid rgba(255,255,255,0.1); padding-top:1.5rem;">
+                    <button type="button" onclick="closeModal()"
+                        style="padding:10px 20px; border:none; background:transparent; color:#ccc; cursor:pointer; font-weight:500;">İptal</button>
+                    <button type="submit"
+                        style="padding:10px 25px; border:none; background:linear-gradient(to right, #00c6ff, #0072ff); color:#fff; font-weight:600; border-radius:8px; cursor:pointer; margin-left:10px;">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="bakim.js"></script>
+</body>
+
+</html>

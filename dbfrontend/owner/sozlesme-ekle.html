@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sözleşme Yap | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .form-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            outline: none;
+        }
+
+        .btn-save {
+            width: 100%;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Emlak<span>Yönetim</span></h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="mulkler.html"><i class="fa-solid fa-building"></i> Mülklerim</a></li>
+            <li class="active"><a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Sözleşmeler</a></li>
+            <li><a href="kiracilar.html"><i class="fa-solid fa-users"></i> Kiracılar</a></li>
+            <li><a href="finans.html"><i class="fa-solid fa-wallet"></i> Finans</a></li>
+            <li><a href="bakim.html"><i class="fa-solid fa-screwdriver-wrench"></i> Talepler</a></li>
+            <li><a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler <span id="notificationBadge" style="display:none; background:#ff4b5c; color:#fff; border-radius:10px; padding:2px 6px; font-size:0.7rem; margin-left:5px;">0</span></a></li>
+            <li><a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a></li>
+            <li><a href="hatirlaticilar.html"><i class="fa-solid fa-bell"></i> Hatırlatıcılar</a></li>
+            <li><a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a></li>
+            <li class="logout"><a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Yeni Sözleşme</h2>
+                <p>Bir mülkü kiracıya atayın</p>
+            </div>
+        </header>
+
+        <div class="form-card">
+            <form id="createContractForm">
+
+                <div class="form-group">
+                    <label>Kiralanacak Mülk</label>
+                    <select id="mulkSelect" required>
+                        <option value="">Yükleniyor...</option>
+                    </select>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+
+                <label style="color:#ccc; margin-bottom:10px; display:block;">Kiracı Bilgileri</label>
+
+                <div class="form-group">
+                    <label>E-posta <span style="color:#ff4b5c;">*</span></label>
+                    <input type="email" id="emailEmail" placeholder="mail@ornek.com" required>
+                    <p style="color:#8d97ad; font-size:0.85rem; margin-top:8px;">
+                        <i class="fa-solid fa-info-circle"></i> E-posta sistemde varsa otomatik eklenir, yoksa yeni hesap oluşturulur.
+                    </p>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Aylık Kira Tutarı</label>
+                        <input type="number" id="tutar" required placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Para Birimi</label>
+                        <select id="paraBirimi" required></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ödeme Günü (Ayın kaçı?)</label>
+                    <input type="number" id="odemeGunu" min="1" max="31" placeholder="1-31 arası" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Başlangıç Tarihi</label>
+                        <input type="date" id="baslangic" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Bitiş Tarihi (Opsiyonel)</label>
+                        <input type="date" id="bitis">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Depozito Tutarı</label>
+                    <input type="number" id="depozito" placeholder="0.00">
+                </div>
+
+                <button type="submit" class="btn-save">Sözleşmeyi Kaydet</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Şifre Bilgisi Modal -->
+    <div id="passwordInfoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding:2.5rem; border-radius:16px; width:500px; max-width:90%; border:1px solid rgba(255,255,255,0.2); color:#fff; box-shadow:0 20px 60px rgba(0,0,0,0.5); animation:slideDown 0.3s ease;">
+            <div style="text-align:center; margin-bottom:2rem;">
+                <div style="width:80px; height:80px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem;">
+                    <i class="fa-solid fa-key" style="font-size:2.5rem; color:#fff;"></i>
+                </div>
+                <h3 style="font-size:1.8rem; margin:0; font-weight:600;">Kiracı Başarıyla Eklendi!</h3>
+                <p style="color:rgba(255,255,255,0.9); margin-top:0.5rem; font-size:0.95rem;">Giriş bilgileri aşağıdadır</p>
+            </div>
+            
+            <div style="background:rgba(0,0,0,0.2); border-radius:12px; padding:1.5rem; margin-bottom:1.5rem;">
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; color:rgba(255,255,255,0.8); font-size:0.85rem; margin-bottom:5px;">Kiracı Adı</label>
+                    <div style="background:rgba(255,255,255,0.15); padding:10px; border-radius:8px; font-weight:600; font-size:1.1rem;" id="passwordModalTenantName">-</div>
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; color:rgba(255,255,255,0.8); font-size:0.85rem; margin-bottom:5px;">E-posta</label>
+                    <div style="background:rgba(255,255,255,0.15); padding:10px; border-radius:8px; font-weight:600;" id="passwordModalEmail">-</div>
+                </div>
+                <div style="margin-bottom:0;">
+                    <label style="display:block; color:rgba(255,255,255,0.8); font-size:0.85rem; margin-bottom:5px;">Şifre <span style="font-size:0.75rem; color:rgba(255,255,255,0.6);">(Tıklayarak kopyalayın)</span></label>
+                    <div onclick="copyPasswordToClipboard()" style="background:rgba(255,255,255,0.15); padding:12px; border-radius:8px; font-weight:700; font-size:1.3rem; letter-spacing:2px; text-align:center; color:#ffd700; font-family:'Courier New', monospace; cursor:pointer; transition:all 0.3s; position:relative;" id="passwordModalPassword" onmouseover="this.style.background='rgba(255,255,255,0.25)';" onmouseout="this.style.background='rgba(255,255,255,0.15)';">
+                        <span id="passwordText">-</span>
+                        <i class="fa-solid fa-copy" style="margin-left:10px; font-size:1rem; opacity:0.7;"></i>
+                    </div>
+                    <div id="passwordCopyFeedback" style="display:none; text-align:center; margin-top:8px; color:#00ff88; font-size:0.85rem; font-weight:600;">
+                        <i class="fa-solid fa-check-circle"></i> Şifre kopyalandı!
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background:rgba(255,255,255,0.1); border-left:4px solid #ffd700; padding:12px; border-radius:8px; margin-bottom:1.5rem;">
+                <p style="margin:0; font-size:0.9rem; line-height:1.5;">
+                    <i class="fa-solid fa-info-circle" style="margin-right:8px;"></i>
+                    Bu şifre ile kiracı sisteme giriş yapabilir. Şifreyi güvenli bir yerde saklayın.
+                </p>
+            </div>
+            
+            <div style="text-align:center;">
+                <button onclick="closePasswordModal()" style="background:rgba(255,255,255,0.2); border:2px solid rgba(255,255,255,0.3); color:#fff; padding:12px 30px; border-radius:8px; cursor:pointer; font-weight:600; font-size:1rem; transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)';" onmouseout="this.style.background='rgba(255,255,255,0.2)';">
+                    <i class="fa-solid fa-check" style="margin-right:8px;"></i> Anladım
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="sozlesme-ekle.js"></script>
+</body>
+
+</html>

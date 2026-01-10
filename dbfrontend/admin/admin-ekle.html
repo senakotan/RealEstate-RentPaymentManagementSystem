@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Ekle | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .form-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #667eea;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .alert-success {
+            background: rgba(0, 200, 83, 0.1);
+            border: 1px solid #00c853;
+            color: #00c853;
+        }
+        .alert-error {
+            background: rgba(255, 75, 92, 0.1);
+            border: 1px solid #ff4b5c;
+            color: #ff4b5c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Admin<span>Panel</span></h2>
+        </div>
+        <ul>
+            <li>
+                <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="kullanicilar.html"><i class="fa-solid fa-users"></i> Tüm Kullanıcılar</a>
+            </li>
+            <li class="active">
+                <a href="admin-ekle.html"><i class="fa-solid fa-user-shield"></i> Admin Ekle</a>
+            </li>
+            <li>
+                <a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Tüm Sözleşmeler</a>
+            </li>
+            <li>
+                <a href="odemeler.html"><i class="fa-solid fa-wallet"></i> Tüm Ödemeler</a>
+            </li>
+            <li>
+                <a href="mulkler.html"><i class="fa-solid fa-building"></i> Tüm Mülkler</a>
+            </li>
+            <li>
+                <a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a>
+            </li>
+            <li>
+                <a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler</a>
+            </li>
+            <li>
+                <a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a>
+            </li>
+            <li class="logout">
+                <a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Yeni Admin Ekle</h2>
+                <p>Sadece mevcut adminler yeni admin ekleyebilir</p>
+            </div>
+        </header>
+
+        <div class="form-card">
+            <div id="alertMessage" class="alert"></div>
+            
+            <form id="adminForm">
+                <div class="form-group">
+                    <label for="adSoyad">Ad Soyad <span style="color:#ff4b5c;">*</span></label>
+                    <input type="text" id="adSoyad" required placeholder="Ad Soyad">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-posta <span style="color:#ff4b5c;">*</span></label>
+                    <input type="email" id="email" required placeholder="admin@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="telefon">Telefon</label>
+                    <input type="text" id="telefon" placeholder="0555 123 45 67">
+                </div>
+
+                <div class="form-group">
+                    <label for="sifre">Şifre <span style="color:#ff4b5c;">*</span></label>
+                    <input type="password" id="sifre" required placeholder="En az 6 karakter" minlength="6">
+                    <small style="color:#888; font-size:0.85rem; margin-top:5px; display:block;">Şifre en az 6 karakter olmalıdır.</small>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-user-shield" style="margin-right:8px;"></i> Admin Ekle
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="admin-ekle.js"></script>
+</body>
+
+</html>
+
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tüm Kullanıcılar | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .filter-tab {
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            color: #ccc;
+            transition: all 0.3s;
+        }
+        .filter-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: transparent;
+            color: #fff;
+        }
+        .filter-tab:hover {
+            background: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Admin<span>Panel</span></h2>
+        </div>
+        <ul>
+            <li>
+                <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            </li>
+            <li class="active">
+                <a href="kullanicilar.html"><i class="fa-solid fa-users"></i> Tüm Kullanıcılar</a>
+            </li>
+            <li>
+                <a href="admin-ekle.html"><i class="fa-solid fa-user-shield"></i> Admin Ekle</a>
+            </li>
+            <li>
+                <a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Tüm Sözleşmeler</a>
+            </li>
+            <li>
+                <a href="odemeler.html"><i class="fa-solid fa-wallet"></i> Tüm Ödemeler</a>
+            </li>
+            <li>
+                <a href="mulkler.html"><i class="fa-solid fa-building"></i> Tüm Mülkler</a>
+            </li>
+            <li>
+                <a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a>
+            </li>
+            <li>
+                <a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler</a>
+            </li>
+            <li>
+                <a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a>
+            </li>
+            <li class="logout">
+                <a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Tüm Kullanıcılar</h2>
+                <p>Sistemdeki tüm kullanıcıları görüntüleyin ve yönetin</p>
+            </div>
+        </header>
+
+        <div class="filter-tabs">
+            <div class="filter-tab active" onclick="switchFilter('all')">Tümü</div>
+            <div class="filter-tab" onclick="switchFilter('Owner')">Mülk Sahipleri</div>
+            <div class="filter-tab" onclick="switchFilter('Tenant')">Kiracılar</div>
+            <div class="filter-tab" onclick="switchFilter('Admin')">Adminler</div>
+        </div>
+
+        <div class="table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Ad Soyad</th>
+                        <th>E-posta</th>
+                        <th>Telefon</th>
+                        <th>Rol</th>
+                        <th>Durum</th>
+                        <th>Kayıt Tarihi</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody id="usersList">
+                    <tr>
+                        <td colspan="7" style="text-align:center;">Yükleniyor...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="kullanicilar.js"></script>
+</body>
+
+</html>
+
+

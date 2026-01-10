@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Rol Seçim Kutuları için Ekstra Stil */
+        .role-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .role-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .role-option input {
+            display: none;
+            /* Radyo butonunu gizle */
+        }
+
+        .role-label {
+            display: block;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #ccc;
+        }
+
+        .role-label i {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Seçili Olduğunda */
+        .role-option input:checked+.role-label {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="login-card" style="width: 450px;">
+        <div class="card-header">
+            <h3>Kayıt Ol</h3>
+            <p>Hesap türünüzü seçerek başlayın</p>
+        </div>
+
+        <form id="registerForm">
+
+            <div class="role-selector">
+                <div class="role-option">
+                    <input type="radio" name="role" id="roleOwner" value="Owner" checked>
+                    <label for="roleOwner" class="role-label">
+                        <i class="fa-solid fa-house-chimney-user"></i>
+                        Mülk Sahibi
+                    </label>
+                </div>
+                <div class="role-option">
+                    <input type="radio" name="role" id="roleTenant" value="Tenant">
+                    <label for="roleTenant" class="role-label">
+                        <i class="fa-solid fa-user-tag"></i>
+                        Kiracı
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Ad Soyad</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="regAd" placeholder="Adınız Soyadınız" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>E-posta</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="regEmail" placeholder="mail@ornek.com" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Telefon</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="text" id="regTel" placeholder="0555...">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Şifre</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="regPass" placeholder="******" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login" style="margin-top: 10px;">Kayıt Ol</button>
+
+            <div class="register-link">
+                Zaten hesabın var mı? <a href="index.html">Giriş Yap</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/register.js"></script>
+</body>
+
+</html>

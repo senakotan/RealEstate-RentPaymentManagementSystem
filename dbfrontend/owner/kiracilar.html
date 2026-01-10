@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiracılar | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        /* Tablo ve Kart Stilleri */
+        .table-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 2rem;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #fff;
+        }
+
+        .custom-table th {
+            text-align: left;
+            padding: 1rem;
+            color: #8d97ad;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+        }
+
+        .custom-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: middle;
+        }
+
+        .custom-table tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Profil Avatarı (Baş harfler) */
+        .tenant-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar-initial {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        /* Aksiyon Butonları */
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-edit {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .btn-edit:hover {
+            background: #00d4ff;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background: rgba(255, 75, 92, 0.1);
+            color: #ff4b5c;
+        }
+
+        .btn-delete:hover {
+            background: #ff4b5c;
+            color: #fff;
+        }
+
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Kiracılarım</h2>
+                <p>Sadece sizin kiracılarınız görüntülenmektedir</p>
+            </div>
+        </header>
+
+        <div id="tenantMessage"></div>
+
+        <!-- Arama Kutusu -->
+        <div style="margin-top:1.5rem; margin-bottom:1rem;">
+            <div style="position:relative; max-width:400px;">
+                <input type="text" id="searchInput" placeholder="Kiracı adına göre ara..." 
+                    style="width:100%; padding:12px 40px 12px 15px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:#fff; outline:none;"
+                    onkeyup="filterTenants()">
+                <i class="fa-solid fa-search" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); color:#8d97ad;"></i>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Kiracı Adı</th>
+                        <th>İletişim</th>
+                        <th>TC Kimlik</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody id="tenantList">
+                    <tr>
+                        <td colspan="5" style="text-align:center;">Yükleniyor...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Kiracı Düzenleme Modal -->
+    <div id="tenantModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
+        <div style="background: var(--card-bg); padding:2rem; border-radius:16px; width:500px; max-width:90%; border:1px solid rgba(255,255,255,0.1); box-shadow:0 20px 60px rgba(0,0,0,0.5); animation:slideDown 0.3s ease;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 id="modalTitle" style="margin:0; color:#fff; font-size:1.5rem;">Kiracı Düzenle</h3>
+                <button onclick="closeModal()" style="background:none; border:none; color:#8d97ad; font-size:1.5rem; cursor:pointer; padding:0; width:30px; height:30px; display:flex; align-items:center; justify-content:center;" onmouseover="this.style.color='#fff';" onmouseout="this.style.color='#8d97ad';">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="tenantForm">
+                <input type="hidden" id="editId" value="">
+                
+                <div class="form-group" style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.5rem; color:#ccc;">Ad Soyad *</label>
+                    <input type="text" id="tAd" required style="width:100%; padding:12px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; outline:none;">
+                </div>
+                
+                <div class="form-group" style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.5rem; color:#ccc;">E-posta *</label>
+                    <input type="email" id="tEmail" required style="width:100%; padding:12px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; outline:none;">
+                </div>
+                
+                <div class="form-group" style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.5rem; color:#ccc;">Telefon</label>
+                    <input type="text" id="tTel" style="width:100%; padding:12px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; outline:none;">
+                </div>
+                
+                <div class="form-group" style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.5rem; color:#ccc;">TC Kimlik No</label>
+                    <input type="text" id="tTc" style="width:100%; padding:12px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; outline:none;">
+                </div>
+                
+                <div class="form-group" style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.5rem; color:#ccc;">Adres</label>
+                    <textarea id="tAdres" rows="3" style="width:100%; padding:12px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; outline:none; resize:vertical;"></textarea>
+                </div>
+                
+                <div id="passwordSection" style="display:none; margin-bottom:1rem;">
+                    <div class="form-group" style="margin-bottom:1rem;">
+                        <label style="display:block; margin-bottom:0.5rem; color:#ccc;">Yeni Şifre (Opsiyonel)</label>
+                        <input type="password" id="tSifre" placeholder="Boş bırakırsanız şifre değişmez" style="width:100%; padding:12px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; outline:none;">
+                    </div>
+                </div>
+                
+                <div id="formError" style="display:none; background:rgba(255,75,92,0.2); border:1px solid #ff4b5c; color:#ff4b5c; padding:10px; border-radius:8px; margin-bottom:1rem; font-size:0.9rem;"></div>
+                <div id="emailError" style="display:none; background:rgba(255,75,92,0.2); border:1px solid #ff4b5c; color:#ff4b5c; padding:10px; border-radius:8px; margin-bottom:1rem; font-size:0.9rem;"></div>
+                
+                <div style="display:flex; gap:10px; margin-top:1.5rem;">
+                    <button type="submit" style="flex:1; background:linear-gradient(to right, #00c6ff, #0072ff); color:#fff; padding:12px; border:none; border-radius:8px; cursor:pointer; font-weight:600;">
+                        <i class="fa-solid fa-save" style="margin-right:5px;"></i> Kaydet
+                    </button>
+                    <button type="button" onclick="closeModal()" style="flex:1; background:rgba(255,255,255,0.1); color:#fff; padding:12px; border:none; border-radius:8px; cursor:pointer; font-weight:600;">
+                        <i class="fa-solid fa-times" style="margin-right:5px;"></i> İptal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Şifre Bilgisi Modal -->
+    <div id="passwordInfoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding:2.5rem; border-radius:16px; width:500px; max-width:90%; border:1px solid rgba(255,255,255,0.2); color:#fff; box-shadow:0 20px 60px rgba(0,0,0,0.5); animation:slideDown 0.3s ease;">
+            <div style="text-align:center; margin-bottom:2rem;">
+                <div style="width:80px; height:80px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem;">
+                    <i class="fa-solid fa-key" style="font-size:2.5rem; color:#fff;"></i>
+                </div>
+                <h3 style="font-size:1.8rem; margin:0; font-weight:600;">Kiracı Başarıyla Eklendi!</h3>
+                <p style="color:rgba(255,255,255,0.9); margin-top:0.5rem; font-size:0.95rem;">Giriş bilgileri aşağıdadır</p>
+            </div>
+            
+            <div style="background:rgba(0,0,0,0.2); border-radius:12px; padding:1.5rem; margin-bottom:1.5rem;">
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; color:rgba(255,255,255,0.8); font-size:0.85rem; margin-bottom:5px;">Kiracı Adı</label>
+                    <div style="background:rgba(255,255,255,0.15); padding:10px; border-radius:8px; font-weight:600; font-size:1.1rem;" id="passwordModalTenantName">-</div>
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; color:rgba(255,255,255,0.8); font-size:0.85rem; margin-bottom:5px;">E-posta</label>
+                    <div style="background:rgba(255,255,255,0.15); padding:10px; border-radius:8px; font-weight:600;" id="passwordModalEmail">-</div>
+                </div>
+                <div style="margin-bottom:0;">
+                    <label style="display:block; color:rgba(255,255,255,0.8); font-size:0.85rem; margin-bottom:5px;">Şifre <span style="font-size:0.75rem; color:rgba(255,255,255,0.6);">(Tıklayarak kopyalayın)</span></label>
+                    <div onclick="copyPasswordToClipboard()" style="background:rgba(255,255,255,0.15); padding:12px; border-radius:8px; font-weight:700; font-size:1.3rem; letter-spacing:2px; text-align:center; color:#ffd700; font-family:'Courier New', monospace; cursor:pointer; transition:all 0.3s; position:relative;" id="passwordModalPassword" onmouseover="this.style.background='rgba(255,255,255,0.25)';" onmouseout="this.style.background='rgba(255,255,255,0.15)';">
+                        <span id="passwordText">-</span>
+                        <i class="fa-solid fa-copy" style="margin-left:10px; font-size:1rem; opacity:0.7;"></i>
+                    </div>
+                    <div id="passwordCopyFeedback" style="display:none; text-align:center; margin-top:8px; color:#00ff88; font-size:0.85rem; font-weight:600;">
+                        <i class="fa-solid fa-check-circle"></i> Şifre kopyalandı!
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background:rgba(255,255,255,0.1); border-left:4px solid #ffd700; padding:12px; border-radius:8px; margin-bottom:1.5rem;">
+                <p style="margin:0; font-size:0.9rem; line-height:1.5;">
+                    <i class="fa-solid fa-info-circle" style="margin-right:8px;"></i>
+                    Bu şifre ile kiracı sisteme giriş yapabilir. Şifreyi güvenli bir yerde saklayın.
+                </p>
+            </div>
+            
+            <div style="text-align:center;">
+                <button onclick="closePasswordModal()" style="background:rgba(255,255,255,0.2); border:2px solid rgba(255,255,255,0.3); color:#fff; padding:12px 30px; border-radius:8px; cursor:pointer; font-weight:600; font-size:1rem; transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)';" onmouseout="this.style.background='rgba(255,255,255,0.2)';">
+                    <i class="fa-solid fa-check" style="margin-right:8px;"></i> Anladım
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kiracı Silme Onay Modal -->
+    <div id="deleteTenantModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
+        <div style="background: var(--card-bg); padding:2rem; border-radius:16px; width:500px; max-width:90%; border:1px solid rgba(255,255,255,0.1); box-shadow:0 20px 60px rgba(0,0,0,0.5); animation:slideDown 0.3s ease;">
+            <div style="text-align:center; margin-bottom:1.5rem;">
+                <div style="width:60px; height:60px; background:rgba(255,75,92,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem;">
+                    <i class="fa-solid fa-exclamation-triangle" style="font-size:2rem; color:#ff4b5c;"></i>
+                </div>
+                <h3 style="margin:0; color:#fff; font-size:1.5rem; margin-bottom:0.5rem;">Kiracıyı Sil</h3>
+                <p style="color:#8d97ad; margin:0;">Kiracı ve bağlı tüm sözleşmeler kalıcı olarak silinecek!</p>
+            </div>
+            
+            <div style="background:rgba(255,75,92,0.1); border-left:4px solid #ff4b5c; padding:1rem; border-radius:8px; margin-bottom:1.5rem;">
+                <p style="margin:0; color:#fff; font-size:0.9rem; line-height:1.6;">
+                    <strong id="deleteTenantName" style="color:#ff4b5c;">-</strong> adlı kiracıyı kalıcı olarak silmek istediğinize emin misiniz?
+                </p>
+                <p style="margin:0.5rem 0 0 0; color:#8d97ad; font-size:0.85rem;">
+                    E-posta: <span id="deleteTenantEmail">-</span>
+                </p>
+                <div style="margin-top:0.75rem; padding:0.75rem; background:rgba(255,75,92,0.15); border-radius:6px;">
+                    <p style="margin:0; color:#ff4b5c; font-size:0.85rem; font-weight:600;">
+                        <i class="fa-solid fa-exclamation-triangle"></i> Uyarı:
+                    </p>
+                    <ul style="margin:0.5rem 0 0 0; padding-left:1.25rem; color:#ffb3b8; font-size:0.8rem; line-height:1.6;">
+                        <li>Bağlı tüm sözleşmeler iptal edilecek</li>
+                        <li>Kiracı kaydı kalıcı olarak silinecek</li>
+                        <li>Kullanıcı hesabı silinecek</li>
+                        <li>Bu işlem geri alınamaz!</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="deleteError" style="display:none; background:rgba(255,75,92,0.2); border:1px solid #ff4b5c; color:#ff4b5c; padding:10px; border-radius:8px; margin-bottom:1rem; font-size:0.9rem;"></div>
+            
+            <div style="display:flex; gap:10px; margin-top:1.5rem;">
+                <button type="button" onclick="closeDeleteModal()" style="flex:1; background:rgba(255,255,255,0.1); color:#fff; padding:12px; border:none; border-radius:8px; cursor:pointer; font-weight:600; transition:0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)';" onmouseout="this.style.background='rgba(255,255,255,0.1)';">
+                    <i class="fa-solid fa-times" style="margin-right:5px;"></i> İptal
+                </button>
+                <button type="button" onclick="confirmDeleteTenant()" style="flex:1; background:linear-gradient(to right, #ff4b5c, #ff6b7a); color:#fff; padding:12px; border:none; border-radius:8px; cursor:pointer; font-weight:600; transition:0.3s;" onmouseover="this.style.background='linear-gradient(to right, #ff6b7a, #ff7b8a)';" onmouseout="this.style.background='linear-gradient(to right, #ff4b5c, #ff6b7a)';">
+                    <i class="fa-solid fa-trash" style="margin-right:5px;"></i> Sil
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="kiracilar.js"></script>
+</body>
+
+</html>

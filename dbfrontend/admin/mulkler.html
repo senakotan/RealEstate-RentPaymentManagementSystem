@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tüm Mülkler | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .table-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 2rem;
+        }
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #fff;
+        }
+        .custom-table th {
+            text-align: left;
+            padding: 1rem;
+            color: #8d97ad;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+        }
+        .custom-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Admin<span>Panel</span></h2>
+        </div>
+        <ul>
+            <li>
+                <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="kullanicilar.html"><i class="fa-solid fa-users"></i> Tüm Kullanıcılar</a>
+            </li>
+            <li>
+                <a href="admin-ekle.html"><i class="fa-solid fa-user-shield"></i> Admin Ekle</a>
+            </li>
+            <li>
+                <a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Tüm Sözleşmeler</a>
+            </li>
+            <li>
+                <a href="odemeler.html"><i class="fa-solid fa-wallet"></i> Tüm Ödemeler</a>
+            </li>
+            <li class="active">
+                <a href="mulkler.html"><i class="fa-solid fa-building"></i> Tüm Mülkler</a>
+            </li>
+            <li>
+                <a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a>
+            </li>
+            <li>
+                <a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler</a>
+            </li>
+            <li>
+                <a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a>
+            </li>
+            <li class="logout">
+                <a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Tüm Mülkler</h2>
+                <p>Sistemdeki tüm mülkleri görüntüleyin</p>
+            </div>
+        </header>
+
+        <div class="table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Başlık</th>
+                        <th>Adres</th>
+                        <th>Mülk Sahibi</th>
+                        <th>Tip</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody id="propertiesList">
+                    <tr>
+                        <td colspan="5" style="text-align:center;">Yükleniyor...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="mulkler.js"></script>
+</body>
+
+</html>
+
+

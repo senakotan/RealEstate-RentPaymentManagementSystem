@@ -1,0 +1,193 @@
+/* Genel Ayarlar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #050a10; /* Daha koyu zemin */
+    /* Çok Koyu Lacivert Degrade */
+    background: linear-gradient(135deg, #020024 0%, #090979 35%, #00d4ff 100%); 
+    /* Alternatif daha sade ve koyu bir arka plan istersen alttaki satırı açıp üsttekini silebilirsin: */
+    background: linear-gradient(135deg, #0a192f, #112240, #0a192f); 
+    
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Arka Plandaki Yüzen Toplar (Süsleme - Artık Turuncu Yok) */
+.background .shape {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+/* Sol Üstteki Top - Derin Mavi */
+.shape:first-child {
+    background: linear-gradient(#00c6ff, #0072ff);
+    left: -80px;
+    top: -80px;
+    filter: blur(50px); /* Daha yumuşak ışık */
+    opacity: 0.6; /* Gözü yormasın */
+}
+
+/* Sağ Alttaki Top - Koyu Mor/Lacivert (Turuncu yerine) */
+.shape:last-child {
+    background: linear-gradient(to right, #1cb5e0, #000851);
+    right: -30px;
+    bottom: -80px;
+    filter: blur(60px); /* Daha yaygın bir karanlık ışık */
+    opacity: 0.7;
+}
+
+/* --- GLASSMORPHISM KARTI --- */
+.login-card {
+    width: 400px;
+    /* Kartın kendisi de biraz daha koyu */
+    background: rgba(16, 33, 65, 0.4); 
+    border-radius: 15px;
+    padding: 50px 35px;
+    
+    /* Buzlu Cam Efekti */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    /* Kenarlıklar daha belirsiz */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); /* Gölge daha koyu */
+    
+    color: #fff;
+    z-index: 1;
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.card-header h3 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.card-header p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 5px;
+}
+
+/* Form Alanları */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.input-wrapper input {
+    width: 100%;
+    height: 50px;
+    /* Input içi daha koyu ve uyumlu */
+    background: rgba(0, 0, 0, 0.2); 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 0 15px 0 45px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.input-wrapper input:focus {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 198, 255, 0.1);
+}
+
+/* Alt Aksiyonlar */
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.actions a {
+    color: #4facfe; /* Açık mavi link rengi */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.actions a:hover {
+    text-decoration: underline;
+}
+
+/* Giriş Butonu */
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    /* Buton rengi de koyu temaya uygun mavi degrade */
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 114, 255, 0.5);
+}
+
+/* Kayıt Ol Linki */
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.register-link a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}

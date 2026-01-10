@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <div class="main-content">
+
+        <header>
+            <div class="header-title">
+                <h2>Özet Durum</h2>
+                <p>Hoş geldin, <span id="userName">Kullanıcı</span></p>
+            </div>
+            <div class="user-wrapper">
+                <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Profil" id="userImg">
+                <div>
+                    <h4 id="headerUserName">Yükleniyor...</h4>
+                    <small>Mülk Sahibi</small>
+                </div>
+            </div>
+        </header>
+
+        <div class="cards">
+            <div class="card-single">
+                <div>
+                    <h1 id="totalProperties">-</h1>
+                    <span>Toplam Mülk</span>
+                </div>
+                <div>
+                    <i class="fa-solid fa-building"></i>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div>
+                    <h1 id="activeContracts">-</h1>
+                    <span>Aktif Sözleşme</span>
+                </div>
+                <div>
+                    <i class="fa-solid fa-file-contract"></i>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div>
+                    <h1 id="monthIncome">- ₺</h1>
+                    <span>Bu Ay Tahsilat</span>
+                </div>
+                <div>
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                </div>
+            </div>
+
+            <div class="card-single warning" onclick="window.location.href='finans.html?tab=late'" style="cursor:pointer;" title="Geciken ödemeleri görüntüle">
+                <div>
+                    <h1 id="latePayments">-</h1>
+                    <span>Geciken Ödeme</span>
+                </div>
+                <div>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-grid">
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Geciken Ödemeler</h3>
+                        <button onclick="loadLatePaymentsList()"><i class="fa-solid fa-sync"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <div id="latePaymentsList" style="max-height:300px; overflow-y:auto;">
+                            <p style="text-align:center; color:#888;">Yükleniyor...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Yaklaşan Hatırlatıcılar</h3>
+                        <button onclick="loadReminders()"><i class="fa-solid fa-sync"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <div id="remindersList" style="max-height:300px; overflow-y:auto;">
+                            <p style="text-align:center; color:#888;">Yükleniyor...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

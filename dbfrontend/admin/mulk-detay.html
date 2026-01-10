@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mülk Detayı | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .detail-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-section h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .document-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .document-item a {
+            color: #00d4ff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .document-item a:hover {
+            text-decoration: underline;
+        }
+
+        .valuation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .valuation-table th,
+        .valuation-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .valuation-table th {
+            color: #8d97ad;
+            font-weight: 500;
+        }
+
+        .valuation-table td {
+            color: #fff;
+        }
+
+        .property-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .info-item {
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .info-item label {
+            display: block;
+            color: #8d97ad;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
+        .info-item span {
+            color: #fff;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar"></div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Mülk Detayı</h2>
+                <p id="propertyTitle">Yükleniyor...</p>
+            </div>
+            <div>
+                <a href="mulkler.html" class="btn-add" style="text-decoration:none;">
+                    <i class="fa-solid fa-arrow-left"></i> Geri Dön
+                </a>
+            </div>
+        </header>
+
+        <!-- Mülk Bilgileri -->
+        <div class="detail-section">
+            <h3><i class="fa-solid fa-info-circle"></i> Mülk Bilgileri</h3>
+            <div class="property-info" id="propertyInfo">
+                <div class="info-item">
+                    <label>Başlık</label>
+                    <span id="infoBaslik">-</span>
+                </div>
+                <div class="info-item">
+                    <label>Adres</label>
+                    <span id="infoAdres">-</span>
+                </div>
+                <div class="info-item">
+                    <label>Konum</label>
+                    <span id="infoKonum">-</span>
+                </div>
+                <div class="info-item">
+                    <label>Metrekare</label>
+                    <span id="infoMetrekare">-</span>
+                </div>
+                <div class="info-item">
+                    <label>Oda Sayısı</label>
+                    <span id="infoOda">-</span>
+                </div>
+                <div class="info-item">
+                    <label>Mülk Türü</label>
+                    <span id="infoTur">-</span>
+                </div>
+                <div class="info-item">
+                    <label>Mülk Sahibi</label>
+                    <span id="infoSahip">-</span>
+                </div>
+                <div class="info-item">
+                    <label>Durum</label>
+                    <span id="infoDurum">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Görseller -->
+        <div class="detail-section">
+            <h3><i class="fa-solid fa-images"></i> Görseller</h3>
+            <div class="gallery-grid" id="galleryGrid">
+                <p style="color:#8d97ad; text-align:center; grid-column:1/-1;">Yükleniyor...</p>
+            </div>
+        </div>
+
+        <!-- Belgeler -->
+        <div class="detail-section">
+            <h3><i class="fa-solid fa-file"></i> Belgeler</h3>
+            <ul class="document-list" id="documentList">
+                <li style="color:#8d97ad; text-align:center; padding:1rem;">Yükleniyor...</li>
+            </ul>
+        </div>
+
+        <!-- Değerleme Geçmişi -->
+        <div class="detail-section">
+            <h3><i class="fa-solid fa-chart-line"></i> Değerleme Geçmişi</h3>
+            <table class="valuation-table">
+                <thead>
+                    <tr>
+                        <th>Tarih</th>
+                        <th>Tahmini Değer</th>
+                        <th>Kaynak</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody id="valuationTableBody">
+                    <tr>
+                        <td colspan="4" style="text-align:center; color:#8d97ad; padding:1rem;">Yükleniyor...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="mulk-detay.js"></script>
+</body>
+
+</html>
+
+

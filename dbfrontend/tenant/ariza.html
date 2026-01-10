@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Arıza Bildir | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Evim<span>Panel</span></h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-house-user"></i> Ev Durumu</a></li>
+            <li><a href="odemeler.html"><i class="fa-solid fa-receipt"></i> Ödemelerim</a></li>
+            <li class="active"><a href="ariza.html"><i class="fa-solid fa-triangle-exclamation"></i> Arıza Bildir</a>
+            </li>
+            <li><a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler <span id="notificationBadge" style="display:none; background:#ff4b5c; color:#fff; border-radius:10px; padding:2px 6px; font-size:0.7rem; margin-left:5px;">0</span></a></li>
+            <li class="logout"><a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Arıza & Bakım Talepleri</h2>
+                <p>Ev sahibi ile iletişim kurun</p>
+            </div>
+            <div class="user-wrapper">
+                <img src="" alt="Profil" id="userImg">
+                <div>
+                    <h4 id="headerUserName">...</h4>
+                    <small>Kiracı</small>
+                </div>
+            </div>
+        </header>
+
+        <div class="card" style="margin-bottom: 2rem;">
+            <div class="card-header">
+                <h3>Yeni Talep Oluştur</h3>
+            </div>
+            <div class="card-body">
+                <form id="createRequestForm" style="display: flex; gap: 15px; align-items: flex-start;">
+                    <textarea id="aciklama" required placeholder="Sorunu kısaca açıklayın (Örn: Mutfak gideri tıkandı)"
+                        style="flex: 1; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; outline: none; height: 50px;"></textarea>
+
+                    <button type="submit"
+                        style="background: linear-gradient(to right, #ff416c, #ff4b2b); color: white; padding: 0 25px; height: 50px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                        Gönder
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Geçmiş Taleplerim</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>Tarih</td>
+                                <td>Sorun</td>
+                                <td>Durum</td>
+                                <td>Sonuç</td>
+                            </tr>
+                        </thead>
+                        <tbody id="requestList">
+                            <tr>
+                                <td colspan="4">Yükleniyor...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="ariza.js"></script>
+</body>
+
+</html>

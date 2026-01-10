@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banka Yönetimi | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .table-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .custom-table thead {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .custom-table th {
+            padding: 12px;
+            text-align: left;
+            color: #ccc;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .custom-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .custom-table tbody tr:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-right: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-edit {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-edit:hover {
+            background: rgba(0, 212, 255, 0.2);
+        }
+
+        .btn-delete {
+            background: rgba(255, 75, 92, 0.1);
+            color: #ff4b5c;
+            border: 1px solid rgba(255, 75, 92, 0.3);
+        }
+
+        .btn-delete:hover {
+            background: rgba(255, 75, 92, 0.2);
+        }
+
+        .btn-add {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--main-color);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #8d97ad;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 2rem;
+            color: #8d97ad;
+        }
+
+        .error-message {
+            background: rgba(255, 75, 92, 0.1);
+            border: 1px solid #ff4b5c;
+            color: #ff4b5c;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .success-message {
+            background: rgba(0, 200, 83, 0.1);
+            border: 1px solid #00c853;
+            color: #00c853;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-box {
+            background: #112240;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            outline: none;
+            margin-bottom: 1rem;
+        }
+
+        .form-input:focus {
+            border-color: var(--main-color);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .required {
+            color: #ff4b5c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Emlak<span>Yönetim</span></h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="mulkler.html"><i class="fa-solid fa-building"></i> Mülklerim</a></li>
+            <li><a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Sözleşmeler</a></li>
+            <li><a href="kiracilar.html"><i class="fa-solid fa-users"></i> Kiracılar</a></li>
+            <li><a href="finans.html"><i class="fa-solid fa-wallet"></i> Finans</a></li>
+            <li><a href="bakim.html"><i class="fa-solid fa-screwdriver-wrench"></i> Talepler</a></li>
+            <li><a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler <span id="notificationBadge" style="display:none; background:#ff4b5c; color:#fff; border-radius:10px; padding:2px 6px; font-size:0.7rem; margin-left:5px;">0</span></a></li>
+            <li class="active"><a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a></li>
+            <li><a href="hatirlaticilar.html"><i class="fa-solid fa-bell"></i> Hatırlatıcılar</a></li>
+            <li><a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a></li>
+            <li class="logout"><a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Banka Listesi</h2>
+                <p>Sistem bankalarını görüntüleyin</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="user-wrapper">
+                    <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Profil" id="userImg">
+                    <div>
+                        <h4 id="headerUserName">Yükleniyor...</h4>
+                        <small>Mülk Sahibi</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="messageContainer"></div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Banka adına göre ara..." onkeyup="filterBanks()">
+            <i class="fa-solid fa-search" style="color: #8d97ad;"></i>
+        </div>
+
+        <div class="table-card">
+            <div id="loadingSpinner" class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i> Yükleniyor...
+            </div>
+            <table class="custom-table" id="bankTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Banka Adı</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody id="bankTableBody">
+                </tbody>
+            </table>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <i class="fa-solid fa-building-columns"></i>
+                <p>Henüz banka kaydı bulunmuyor.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="banka.js"></script>
+</body>
+
+</html>
+

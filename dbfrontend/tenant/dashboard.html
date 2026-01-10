@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiracı Paneli | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Evim<span>Panel</span></h2>
+        </div>
+        <ul>
+            <li class="active">
+                <a href="dashboard.html"><i class="fa-solid fa-house-user"></i> Ev Durumu</a>
+            </li>
+            <li>
+                <a href="odemeler.html"><i class="fa-solid fa-receipt"></i> Ödemelerim</a>
+            </li>
+            <li>
+                <a href="ariza.html"><i class="fa-solid fa-triangle-exclamation"></i> Arıza Bildir</a>
+            </li>
+            <li>
+                <a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler <span id="notificationBadge" style="display:none; background:#ff4b5c; color:#fff; border-radius:10px; padding:2px 6px; font-size:0.7rem; margin-left:5px;">0</span></a>
+            </li>
+            <li class="logout">
+                <a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+
+        <header>
+            <div class="header-title">
+                <h2>Hoş Geldiniz</h2>
+                <p>Kiracı Paneli</p>
+            </div>
+            <div class="user-wrapper">
+                <img src="" alt="Profil" id="userImg">
+                <div>
+                    <h4 id="headerUserName">Yükleniyor...</h4>
+                    <small>Kiracı</small>
+                </div>
+            </div>
+        </header>
+
+        <div class="cards">
+            <div class="card-single">
+                <div>
+                    <h1 id="kiraTutari">-</h1>
+                    <span>Aylık Kira</span>
+                </div>
+                <div><i class="fa-solid fa-money-bill-wave"></i></div>
+            </div>
+
+            <div class="card-single">
+                <div>
+                    <h1 id="sonrakiOdeme">-</h1>
+                    <span>Sonraki Ödeme</span>
+                </div>
+                <div><i class="fa-regular fa-calendar-check"></i></div>
+            </div>
+
+            <div class="card-single">
+                <div>
+                    <h1 id="kalanGun">- Gün</h1>
+                    <span>Kontrat Bitişine</span>
+                </div>
+                <div><i class="fa-solid fa-hourglass-half"></i></div>
+            </div>
+
+            <div class="card-single"
+                style="background: rgba(0, 212, 255, 0.15); border: 1px solid rgba(0, 212, 255, 0.3);">
+                <div>
+                    <h3 id="evSahibi" style="font-size:1.1rem; color:#fff; margin-bottom:5px;">-</h3>
+                    <span style="color:#00d4ff;">Ev Sahibi</span>
+                </div>
+                <div><i class="fa-solid fa-user-tie" style="color:#00d4ff;"></i></div>
+            </div>
+        </div>
+
+        <div class="recent-grid">
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Oturduğunuz Mülk</h3>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <h2 id="mulkBaslik" style="margin-bottom:10px; color:#fff;">Yükleniyor...</h2>
+                            <p id="mulkAdres" style="color:#8d97ad; font-size:0.95rem; margin-bottom:10px;">
+                                <i class="fa-solid fa-location-dot"></i> -
+                            </p>
+                            <div style="display:flex; gap:15px; color:#ccc; font-size:0.9rem;">
+                                <span id="mulkDetay">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

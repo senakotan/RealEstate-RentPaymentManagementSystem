@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sözleşmeler | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        /* Kontrat Durum Renkleri */
+        .contract-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .contract-status.active {
+            background: rgba(0, 200, 83, 0.2);
+            color: #00c853;
+            border: 1px solid #00c853;
+        }
+
+        .contract-status.passive {
+            background: rgba(255, 75, 92, 0.2);
+            color: #ff4b5c;
+            border: 1px solid #ff4b5c;
+        }
+
+        .contract-amount {
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .contract-dates {
+            font-size: 0.85rem;
+            color: #8d97ad;
+        }
+
+        .contract-dates i {
+            margin-right: 5px;
+            color: var(--main-color);
+        }
+
+        .btn-action {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-edit {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .btn-edit:hover {
+            background: #00d4ff;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background: rgba(255, 75, 92, 0.1);
+            color: #ff4b5c;
+        }
+
+        .btn-delete:hover {
+            background: #ff4b5c;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Emlak<span>Yönetim</span></h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="mulkler.html"><i class="fa-solid fa-building"></i> Mülklerim</a></li>
+            <li class="active"><a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Sözleşmeler</a></li>
+            <li><a href="kiracilar.html"><i class="fa-solid fa-users"></i> Kiracılar</a></li>
+            <li><a href="finans.html"><i class="fa-solid fa-wallet"></i> Finans</a></li>
+            <li><a href="bakim.html"><i class="fa-solid fa-screwdriver-wrench"></i> Talepler</a></li>
+            <li><a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler <span id="notificationBadge" style="display:none; background:#ff4b5c; color:#fff; border-radius:10px; padding:2px 6px; font-size:0.7rem; margin-left:5px;">0</span></a></li>
+            <li><a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a></li>
+            <li><a href="hatirlaticilar.html"><i class="fa-solid fa-bell"></i> Hatırlatıcılar</a></li>
+            <li><a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a></li>
+            <li class="logout"><a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Kira Sözleşmeleri</h2>
+                <p>Aktif ve geçmiş kontratlarınız</p>
+            </div>
+            <div>
+                <a href="sozlesme-ekle.html" class="btn-add">
+                    <i class="fa-solid fa-file-signature"></i> Yeni Sözleşme
+                </a>
+            </div>
+        </header>
+
+        <!-- Filtre Tabs -->
+        <div style="display:flex; gap:10px; margin-bottom:1.5rem;">
+            <button id="filterAll" onclick="switchFilter('all')" style="padding:10px 20px; background:linear-gradient(to right, #00c6ff, #0072ff); color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">
+                <i class="fa-solid fa-list"></i> Tümü
+            </button>
+            <button id="filterActive" onclick="switchFilter('active')" style="padding:10px 20px; background:rgba(255,255,255,0.1); color:#ccc; border:none; border-radius:8px; cursor:pointer; font-weight:600;">
+                <i class="fa-solid fa-check-circle"></i> Aktif Sözleşmeler
+            </button>
+            <button id="filterInactive" onclick="switchFilter('inactive')" style="padding:10px 20px; background:rgba(255,255,255,0.1); color:#ccc; border:none; border-radius:8px; cursor:pointer; font-weight:600;">
+                <i class="fa-solid fa-ban"></i> Pasif (Geçmiş) Sözleşmeler
+            </button>
+        </div>
+
+        <div class="table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Sözleşme No</th>
+                        <th>Mülk / Adres</th>
+                        <th>Kiracı</th>
+                        <th>Aylık Kira</th>
+                        <th>Para Birimi</th>
+                        <th>Ödeme Günü</th>
+                        <th>Başlangıç - Bitiş</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody id="contractList">
+                    <tr>
+                        <td colspan="9">Yükleniyor...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="sozlesmeler.js"></script>
+</body>
+
+</html>

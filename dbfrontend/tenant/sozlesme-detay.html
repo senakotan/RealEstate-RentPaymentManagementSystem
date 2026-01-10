@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sözleşme Detayı | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .detail-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-section {
+            margin-bottom: 2rem;
+        }
+
+        .detail-section h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        .detail-row {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #8d97ad;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-badge.active {
+            background: rgba(0, 200, 83, 0.2);
+            color: #00c853;
+            border: 1px solid #00c853;
+        }
+
+        .status-badge.passive {
+            background: rgba(255, 75, 92, 0.2);
+            color: #ff4b5c;
+            border: 1px solid #ff4b5c;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-link {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 198, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .detail-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Emlak<span>Yönetim</span></h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            <li class="active"><a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Sözleşmelerim</a></li>
+            <li><a href="odemeler.html"><i class="fa-solid fa-wallet"></i> Ödemelerim</a></li>
+            <li><a href="ariza.html"><i class="fa-solid fa-screwdriver-wrench"></i> Arıza Talepleri</a></li>
+            <li><a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler <span id="notificationBadge" style="display:none; background:#ff4b5c; color:#fff; border-radius:10px; padding:2px 6px; font-size:0.7rem; margin-left:5px;">0</span></a></li>
+            <li><a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a></li>
+            <li class="logout"><a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Sözleşme Detayı</h2>
+                <p>Sözleşme bilgileri ve ödeme planı</p>
+            </div>
+            <div>
+                <a href="sozlesmeler.html" class="btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i> Geri Dön
+                </a>
+            </div>
+        </header>
+
+        <div id="loadingMessage" style="text-align:center; padding:3rem; color:#8d97ad;">
+            <i class="fa-solid fa-spinner fa-spin" style="font-size:2rem; margin-bottom:1rem;"></i>
+            <p>Yükleniyor...</p>
+        </div>
+
+        <div id="contractDetail" style="display:none;">
+            <!-- Sözleşme Bilgileri -->
+            <div class="detail-card">
+                <div class="detail-section">
+                    <h3><i class="fa-solid fa-file-contract"></i> Sözleşme Bilgileri</h3>
+                    <div class="detail-row">
+                        <div class="detail-label">Sözleşme No:</div>
+                        <div class="detail-value" id="sozlesmeNo">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Durum:</div>
+                        <div class="detail-value" id="durum"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Başlangıç Tarihi:</div>
+                        <div class="detail-value" id="baslangicTarihi">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Bitiş Tarihi:</div>
+                        <div class="detail-value" id="bitisTarihi">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Açıklama:</div>
+                        <div class="detail-value" id="aciklama">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mülk Bilgileri -->
+            <div class="detail-card">
+                <div class="detail-section">
+                    <h3><i class="fa-solid fa-building"></i> Mülk Bilgileri</h3>
+                    <div class="detail-row">
+                        <div class="detail-label">Mülk Adı:</div>
+                        <div class="detail-value" id="mulkBaslik">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Adres:</div>
+                        <div class="detail-value" id="mulkAdres">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ev Sahibi Bilgileri -->
+            <div class="detail-card">
+                <div class="detail-section">
+                    <h3><i class="fa-solid fa-user-tie"></i> Ev Sahibi Bilgileri</h3>
+                    <div class="detail-row">
+                        <div class="detail-label">Ad Soyad:</div>
+                        <div class="detail-value" id="sahipAd">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ödeme Bilgileri -->
+            <div class="detail-card">
+                <div class="detail-section">
+                    <h3><i class="fa-solid fa-money-bill-wave"></i> Ödeme Bilgileri</h3>
+                    <div class="detail-row">
+                        <div class="detail-label">Aylık Kira:</div>
+                        <div class="detail-value" id="aylikKira" style="font-size:1.3rem; font-weight:600; color:#00d4ff;">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Para Birimi:</div>
+                        <div class="detail-value" id="paraBirimi">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Ödeme Günü:</div>
+                        <div class="detail-value">
+                            <span style="background:rgba(0,212,255,0.1); color:#00d4ff; padding:6px 15px; border-radius:15px; font-weight:600;" id="odemeGunu">-</span>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Depozito:</div>
+                        <div class="detail-value" id="depozito">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İşlemler -->
+            <div class="action-buttons">
+                <a href="#" id="viewPaymentsLink" class="btn-link">
+                    <i class="fa-solid fa-list"></i> Bu Sözleşmeye Ait Ödemeleri Gör
+                </a>
+                <button onclick="goBack()" class="btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i> Geri Dön
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="sozlesme-detay.js"></script>
+</body>
+
+</html>
+

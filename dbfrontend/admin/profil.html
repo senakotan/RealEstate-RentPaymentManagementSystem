@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profilim | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            outline: none;
+        }
+
+        .section-title {
+            color: #ff6b6b;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        .btn-save:hover {
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Admin<span>Panel</span></h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="kullanicilar.html"><i class="fa-solid fa-users"></i> Tüm Kullanıcılar</a></li>
+            <li><a href="admin-ekle.html"><i class="fa-solid fa-user-shield"></i> Admin Ekle</a></li>
+            <li><a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Tüm Sözleşmeler</a></li>
+            <li><a href="odemeler.html"><i class="fa-solid fa-wallet"></i> Tüm Ödemeler</a></li>
+            <li><a href="mulkler.html"><i class="fa-solid fa-building"></i> Tüm Mülkler</a></li>
+            <li><a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a></li>
+            <li><a href="kiracilar.html"><i class="fa-solid fa-user-tie"></i> Tüm Kiracılar</a></li>
+            <li><a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler</a></li>
+            <li class="active"><a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a></li>
+            <li class="logout"><a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Profil Ayarları</h2>
+                <p>Bilgilerinizi ve şifrenizi güncelleyin</p>
+            </div>
+            <div class="user-info">
+                <img id="userImg" src="" alt="User" style="width:40px; height:40px; border-radius:50%;">
+                <span id="headerUserName"></span>
+            </div>
+        </header>
+
+        <div class="profile-card">
+            <form id="profileForm">
+                <h3 class="section-title">Kişisel Bilgiler</h3>
+
+                <div class="form-group">
+                    <label>Ad Soyad</label>
+                    <input type="text" id="adSoyad" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefon</label>
+                    <input type="text" id="telefon" placeholder="05XX XXX XX XX">
+                </div>
+                <div class="form-group">
+                    <label>TC Kimlik No</label>
+                    <input type="text" id="tcNo" placeholder="11 haneli TC No">
+                </div>
+                <div class="form-group">
+                    <label>E-posta (Değiştirilemez)</label>
+                    <input type="email" id="email" disabled style="opacity: 0.6; cursor: not-allowed;">
+                </div>
+
+                <h3 class="section-title" style="margin-top: 2rem;">Güvenlik</h3>
+
+                <div class="form-group">
+                    <label>Yeni Şifre (Boş bırakırsanız değişmez)</label>
+                    <input type="password" id="yeniSifre" placeholder="En az 6 karakter">
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <button type="submit" class="btn-save">Değişiklikleri Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="profil.js"></script>
+</body>
+
+</html>
+
+

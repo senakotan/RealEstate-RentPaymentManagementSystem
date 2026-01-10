@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .admin-badge {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Admin<span>Panel</span></h2>
+        </div>
+        <ul>
+            <li class="active">
+                <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="kullanicilar.html"><i class="fa-solid fa-users"></i> Tüm Kullanıcılar</a>
+            </li>
+            <li>
+                <a href="admin-ekle.html"><i class="fa-solid fa-user-shield"></i> Admin Ekle</a>
+            </li>
+            <li>
+                <a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Tüm Sözleşmeler</a>
+            </li>
+            <li>
+                <a href="odemeler.html"><i class="fa-solid fa-wallet"></i> Tüm Ödemeler</a>
+            </li>
+            <li>
+                <a href="mulkler.html"><i class="fa-solid fa-building"></i> Tüm Mülkler</a>
+            </li>
+            <li>
+                <a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a>
+            </li>
+            <li>
+                <a href="kiracilar.html"><i class="fa-solid fa-user-tie"></i> Tüm Kiracılar</a>
+            </li>
+            <li>
+                <a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler <span id="notificationBadge" style="display:none; background:#ff4b5c; color:#fff; border-radius:10px; padding:2px 6px; font-size:0.7rem; margin-left:5px;">0</span></a>
+            </li>
+            <li>
+                <a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a>
+            </li>
+            <li class="logout">
+                <a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Admin Dashboard <span class="admin-badge">ADMIN</span></h2>
+                <p>Sistem genelinde tüm verileri yönetin</p>
+            </div>
+            <div class="user-info">
+                <img id="userImg" src="" alt="User" style="width:40px; height:40px; border-radius:50%;">
+                <span id="headerUserName"></span>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="card-single">
+                <div class="card-flex">
+                    <div class="card-info">
+                        <div class="card-head">
+                            <span>Toplam Kullanıcı</span>
+                            <small>Owner + Tenant</small>
+                        </div>
+                        <h2 id="totalUsers">0</h2>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-users" style="color:#667eea;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div class="card-flex">
+                    <div class="card-info">
+                        <div class="card-head">
+                            <span>Toplam Mülk</span>
+                            <small>Aktif mülkler</small>
+                        </div>
+                        <h2 id="totalProperties">0</h2>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-building" style="color:#00c853;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div class="card-flex">
+                    <div class="card-info">
+                        <div class="card-head">
+                            <span>Aktif Sözleşmeler</span>
+                            <small>Devam eden</small>
+                        </div>
+                        <h2 id="activeContracts">0</h2>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-file-contract" style="color:#00d4ff;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div class="card-flex">
+                    <div class="card-info">
+                        <div class="card-head">
+                            <span>Geciken Ödemeler</span>
+                            <small>Vadesi geçen</small>
+                        </div>
+                        <h2 id="gecikenOdemeler">0</h2>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-exclamation-triangle" style="color:#ff4b5c;"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="recent-grid">
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Son Eklenen Kullanıcılar</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Ad Soyad</th>
+                                        <th>E-posta</th>
+                                        <th>Rol</th>
+                                        <th>Durum</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentUsers">
+                                    <tr>
+                                        <td colspan="4" style="text-align:center; color:#888;">Yükleniyor...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Son Ödemeler</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Mülk</th>
+                                        <th>Kiracı</th>
+                                        <th>Tutar</th>
+                                        <th>Durum</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentPayments">
+                                    <tr>
+                                        <td colspan="4" style="text-align:center; color:#888;">Yükleniyor...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
+

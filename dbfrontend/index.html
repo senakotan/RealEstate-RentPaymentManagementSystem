@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap | Emlak Yönetim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="login-card">
+        <div class="card-header">
+            <h3>Hoş Geldiniz</h3>
+            <p>Hesabınıza giriş yapın</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">E-posta</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="email" placeholder="ornek@mail.com" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Şifre</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="Şifreniz" required>
+                </div>
+            </div>
+
+            <div class="actions">
+                <label class="remember-me">
+                    <input type="checkbox"> Beni Hatırla
+                </label>
+            </div>
+            
+            <div id="errorMessage" style="display:none; background:#ff4b5c; color:#fff; padding:12px; border-radius:8px; margin-bottom:1rem; text-align:center; font-size:0.9rem;"></div>
+
+            <button type="submit" class="btn-login">Giriş Yap</button>
+
+            <div class="register-link">
+                Hesabın yok mu? <a href="register.html">Kayıt Ol</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tüm Kiracılar | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .table-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 2rem;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #fff;
+        }
+
+        .custom-table th {
+            text-align: left;
+            padding: 1rem;
+            color: #8d97ad;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+        }
+
+        .custom-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: middle;
+        }
+
+        .custom-table tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .tenant-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar-initial {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-edit {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .btn-edit:hover {
+            background: #00d4ff;
+            color: #fff;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Admin<span>Panel</span></h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="kullanicilar.html"><i class="fa-solid fa-users"></i> Tüm Kullanıcılar</a></li>
+            <li><a href="admin-ekle.html"><i class="fa-solid fa-user-shield"></i> Admin Ekle</a></li>
+            <li><a href="sozlesmeler.html"><i class="fa-solid fa-file-contract"></i> Tüm Sözleşmeler</a></li>
+            <li><a href="odemeler.html"><i class="fa-solid fa-wallet"></i> Tüm Ödemeler</a></li>
+            <li><a href="mulkler.html"><i class="fa-solid fa-building"></i> Tüm Mülkler</a></li>
+            <li><a href="banka.html"><i class="fa-solid fa-building-columns"></i> Banka Yönetimi</a></li>
+            <li class="active"><a href="kiracilar.html"><i class="fa-solid fa-user-tie"></i> Tüm Kiracılar</a></li>
+            <li><a href="bildirimler.html"><i class="fa-solid fa-bell"></i> Bildirimler</a></li>
+            <li><a href="profil.html"><i class="fa-solid fa-user-gear"></i> Profilim</a></li>
+            <li class="logout"><a href="#" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Tüm Kiracılar</h2>
+                <p>Sistemdeki tüm kiracıları görüntüleyin</p>
+            </div>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Kiracı adına göre ara..." onkeyup="filterTenants()">
+            <i class="fa-solid fa-search" style="color: #8d97ad;"></i>
+        </div>
+
+        <div class="table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Kiracı Adı</th>
+                        <th>E-posta</th>
+                        <th>Telefon</th>
+                        <th>TC Kimlik</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody id="tenantList">
+                    <tr>
+                        <td colspan="6" style="text-align:center;">Yükleniyor...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Kiracı Detay Modal -->
+    <div id="tenantDetailModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h2 id="modalTenantName">Kiracı Detayları</h2>
+                <span class="close" onclick="closeTenantDetailModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Kiracı Bilgileri -->
+                <div class="detail-section">
+                    <h3><i class="fa-solid fa-user"></i> Kişisel Bilgiler</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Ad Soyad:</label>
+                            <span id="detailAdSoyad">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>E-posta:</label>
+                            <span id="detailEmail">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Telefon:</label>
+                            <span id="detailTelefon">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>TC Kimlik:</label>
+                            <span id="detailTC">-</span>
+                        </div>
+                        <div class="info-item" style="grid-column: 1 / -1;">
+                            <label>Adres:</label>
+                            <span id="detailAdres">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Durum:</label>
+                            <span id="detailDurum">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aktif Sözleşmeler -->
+                <div class="detail-section">
+                    <h3><i class="fa-solid fa-file-contract"></i> Aktif Sözleşmeler</h3>
+                    <div id="detailContracts">
+                        <p style="color: #8d97ad; text-align: center; padding: 1rem;">Yükleniyor...</p>
+                    </div>
+                </div>
+
+                <!-- Ödeme Geçmişi -->
+                <div class="detail-section">
+                    <h3><i class="fa-solid fa-wallet"></i> Ödeme Geçmişi</h3>
+                    <div id="detailPayments">
+                        <p style="color: #8d97ad; text-align: center; padding: 1rem;">Yükleniyor...</p>
+                    </div>
+                </div>
+
+                <!-- Bakım Talepleri -->
+                <div class="detail-section">
+                    <h3><i class="fa-solid fa-tools"></i> Bakım Talepleri</h3>
+                    <div id="detailMaintenance">
+                        <p style="color: #8d97ad; text-align: center; padding: 1rem;">Yükleniyor...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            margin: 2% auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #fff;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .detail-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-section:last-child {
+            border-bottom: none;
+        }
+
+        .detail-section h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .info-item label {
+            color: #8d97ad;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .info-item span {
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+        .contract-card, .payment-card, .maintenance-card {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .contract-card h4, .payment-card h4, .maintenance-card h4 {
+            color: #fff;
+            margin: 0 0 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .contract-card p, .payment-card p, .maintenance-card p {
+            color: #8d97ad;
+            margin: 0.25rem 0;
+            font-size: 0.85rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(0, 200, 83, 0.2);
+            color: #00c853;
+        }
+
+        .status-paid {
+            background: rgba(0, 200, 83, 0.2);
+            color: #00c853;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .status-late {
+            background: rgba(255, 75, 92, 0.2);
+            color: #ff4b5c;
+        }
+
+        .status-open {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+
+        .status-completed {
+            background: rgba(0, 200, 83, 0.2);
+            color: #00c853;
+        }
+    </style>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="kiracilar.js"></script>
+</body>
+
+</html>
+
+

@@ -1,0 +1,727 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Rana\\Desktop\\Database\\backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{59DE4870-31CD-4B91-AE57-819A61AEA08C}|backend\\db.csproj|c:\\users\\rana\\desktop\\database\\backend\\backend\\controllers\\hatirlaticicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{59DE4870-31CD-4B91-AE57-819A61AEA08C}|backend\\db.csproj|solutionrelative:backend\\controllers\\hatirlaticicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\RolController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KullaniciController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\denemedb\\db\\Controllers\\DashboardControllercs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\RegisterController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KiraciController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\MulkController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\LoginController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\SozlukController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BankaController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BakimTalepController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Hatirlatici.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\ParaBirimi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\OdemeDetayDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\OdemeYontem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkTuru.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Rol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Sehir.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\SozlesmeDetayDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KiraSozlesmeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BildirimController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\HatirlaticiController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BankaHesapController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KiraOdemeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KullaniciRolController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Helpers\\AuthorizationHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\KiraOdeme.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\KiraSozlesme.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Mulk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkDetayDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkDegerleme.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkBelge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Kullanici.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\BankaHesap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Banka.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\DbHelper\\Connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\LoginRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Logkayit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Bildirim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkGorsel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\OdemeDurum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\\u0130lce.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\KullaniciRol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59DE4870-31CD-4B91-AE57-819A61AEA08C}|backend\\db.csproj|c:\\users\\rana\\desktop\\database\\backend\\backend\\controllers\\bildirimcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{59DE4870-31CD-4B91-AE57-819A61AEA08C}|backend\\db.csproj|solutionrelative:backend\\controllers\\bildirimcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59DE4870-31CD-4B91-AE57-819A61AEA08C}|backend\\db.csproj|c:\\users\\rana\\desktop\\database\\backend\\backend\\controllers\\bankacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{59DE4870-31CD-4B91-AE57-819A61AEA08C}|backend\\db.csproj|solutionrelative:backend\\controllers\\bankacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HatirlaticiController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\backend\\backend\\Controllers\\HatirlaticiController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\HatirlaticiController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\backend\\backend\\Controllers\\HatirlaticiController.cs",
+              "RelativeToolTip": "backend\\Controllers\\HatirlaticiController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-15T19:23:02.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "BildirimController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\backend\\backend\\Controllers\\BildirimController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\BildirimController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\backend\\backend\\Controllers\\BildirimController.cs",
+              "RelativeToolTip": "backend\\Controllers\\BildirimController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-15T19:17:31.695Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "BankaController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\backend\\backend\\Controllers\\BankaController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\BankaController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\backend\\backend\\Controllers\\BankaController.cs",
+              "RelativeToolTip": "backend\\Controllers\\BankaController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-15T19:17:30.511Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RegisterController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\RegisterController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\RegisterController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\RegisterController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\RegisterController.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwFMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T11:48:07.566Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RolController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\RolController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\RolController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\RolController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\RolController.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T06:09:31.892Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "KiraciController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KiraciController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\KiraciController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KiraciController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\KiraciController.cs",
+              "ViewState": "AgIAALYAAAAAAAAAAAAAANQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T05:51:33.813Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DashboardControllercs.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\denemedb\\db\\Controllers\\DashboardControllercs.cs",
+              "RelativeDocumentMoniker": "..\\..\\denemedb\\db\\Controllers\\DashboardControllercs.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\denemedb\\db\\Controllers\\DashboardControllercs.cs",
+              "RelativeToolTip": "..\\..\\denemedb\\db\\Controllers\\DashboardControllercs.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwHAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T07:38:06.265Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MulkController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\MulkController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\MulkController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\MulkController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\MulkController.cs",
+              "ViewState": "AgIAANgAAAAAAAAAAAAqwBMBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T06:18:37.499Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\LoginController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T06:05:20.268Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "KullaniciController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KullaniciController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\KullaniciController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KullaniciController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\KullaniciController.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:50:57.58Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SozlukController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\SozlukController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\SozlukController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\SozlukController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\SozlukController.cs",
+              "ViewState": "AgIAAM4AAAAAAAAAAAAswBoAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T06:13:40.946Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BankaController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BankaController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\BankaController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BankaController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\BankaController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T14:11:56.813Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BakimTalepController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BakimTalepController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\BakimTalepController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BakimTalepController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\BakimTalepController.cs",
+              "ViewState": "AgIAAK4AAAAAAAAAAAAYwOoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T07:50:31.983Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Hatirlatici.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Hatirlatici.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\Hatirlatici.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Hatirlatici.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\Hatirlatici.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:45:03.17Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ParaBirimi.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\ParaBirimi.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\ParaBirimi.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\ParaBirimi.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\ParaBirimi.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T06:10:58.473Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "OdemeDetayDto.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\OdemeDetayDto.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\OdemeDetayDto.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\OdemeDetayDto.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\OdemeDetayDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T06:03:35.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "OdemeYontem.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\OdemeYontem.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\OdemeYontem.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\OdemeYontem.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\OdemeYontem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:42:42.971Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MulkTuru.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkTuru.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\MulkTuru.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkTuru.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\MulkTuru.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:42:14.317Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Rol.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Rol.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\Rol.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Rol.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\Rol.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:41:20.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Sehir.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Sehir.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\Sehir.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Sehir.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\Sehir.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:41:41.115Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "SozlesmeDetayDto.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\SozlesmeDetayDto.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\SozlesmeDetayDto.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\SozlesmeDetayDto.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\SozlesmeDetayDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T06:00:37.882Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "KiraSozlesmeController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KiraSozlesmeController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\KiraSozlesmeController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KiraSozlesmeController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\KiraSozlesmeController.cs",
+              "ViewState": "AgIAAAsBAAAAAAAAAAAgwB0BAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T06:55:05.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BildirimController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BildirimController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\BildirimController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BildirimController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\BildirimController.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAApwEgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T07:46:03.051Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "HatirlaticiController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\HatirlaticiController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\HatirlaticiController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\HatirlaticiController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\HatirlaticiController.cs",
+              "ViewState": "AgIAANUAAAAAAAAAAAAmwPoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T06:18:44.745Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "BankaHesapController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BankaHesapController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\BankaHesapController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\BankaHesapController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\BankaHesapController.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAqwGwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T14:07:31.307Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "KiraOdemeController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KiraOdemeController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\KiraOdemeController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KiraOdemeController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\KiraOdemeController.cs",
+              "ViewState": "AgIAAD8BAAAAAAAAAAAAwGsBAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T07:32:56.837Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "KullaniciRolController.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KullaniciRolController.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Controllers\\KullaniciRolController.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Controllers\\KullaniciRolController.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Controllers\\KullaniciRolController.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAUwDgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T06:10:10.61Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "AuthorizationHelper.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Helpers\\AuthorizationHelper.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Helpers\\AuthorizationHelper.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Helpers\\AuthorizationHelper.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Helpers\\AuthorizationHelper.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAiwKUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T06:12:07.02Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "KiraOdeme.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\KiraOdeme.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\KiraOdeme.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\KiraOdeme.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\KiraOdeme.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:44:13.227Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "KiraSozlesme.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\KiraSozlesme.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\KiraSozlesme.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\KiraSozlesme.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\KiraSozlesme.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:44:03.033Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Mulk.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Mulk.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\Mulk.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Mulk.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\Mulk.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:42:54.891Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "MulkDetayDto.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkDetayDto.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\MulkDetayDto.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkDetayDto.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\MulkDetayDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T05:57:29.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "MulkDegerleme.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkDegerleme.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\MulkDegerleme.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkDegerleme.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\MulkDegerleme.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:43:06.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "MulkBelge.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkBelge.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\MulkBelge.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkBelge.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\MulkBelge.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:43:17.771Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Kullanici.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Kullanici.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\Kullanici.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Kullanici.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\Kullanici.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:55:49.086Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "BankaHesap.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\BankaHesap.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\BankaHesap.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\BankaHesap.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\BankaHesap.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:44:39.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Banka.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Banka.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\Banka.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Banka.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\Banka.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:44:25.466Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Connection.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\DbHelper\\Connection.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\DbHelper\\Connection.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\DbHelper\\Connection.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\DbHelper\\Connection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:34:48.123Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Program.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Program.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Program.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwBkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T06:33:27.403Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\LoginRequest.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\LoginRequest.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T06:05:58.139Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Logkayit.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Logkayit.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\Logkayit.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Logkayit.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\Logkayit.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:45:15.333Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "Bildirim.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Bildirim.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\Bildirim.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\Bildirim.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\Bildirim.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:44:50.475Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "MulkGorsel.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkGorsel.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\MulkGorsel.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\MulkGorsel.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\MulkGorsel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:43:29.216Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "OdemeDurum.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\OdemeDurum.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\OdemeDurum.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\OdemeDurum.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\OdemeDurum.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:42:25.282Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "\u0130lce.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\\u0130lce.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\\u0130lce.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\\u0130lce.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\\u0130lce.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:41:58.39Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "KullaniciRol.cs",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\KullaniciRol.cs",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\Models\\KullaniciRol.cs",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\Models\\KullaniciRol.cs",
+              "RelativeToolTip": "..\\denemedb\\db\\Models\\KullaniciRol.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:41:30.745Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\appsettings.json",
+              "RelativeDocumentMoniker": "..\\denemedb\\db\\appsettings.json",
+              "ToolTip": "C:\\Users\\Rana\\Desktop\\Database\\denemedb\\db\\appsettings.json",
+              "RelativeToolTip": "..\\denemedb\\db\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-11T05:13:30.768Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
