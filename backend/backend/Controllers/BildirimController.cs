@@ -9,7 +9,6 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class BildirimController : ControllerBase
     {
-        // 1?? KULLANICININ BÝLDÝRÝMLERÝ (Okunmamýþlar üstte)
         [HttpGet("kullanici/{kullaniciId}")]
         public async Task<ActionResult<IEnumerable<Bildirim>>> GetByUser(int kullaniciId)
         {
@@ -41,7 +40,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2?? OKUNMAMIÞ BÝLDÝRÝM SAYISI (Badge için)
         [HttpGet("unread-count/{kullaniciId}")]
         public async Task<ActionResult<int>> GetUnreadCount(int kullaniciId)
         {
@@ -52,12 +50,12 @@ namespace EmlakYonetimAPI.Controllers
             return Ok((int)await cmd.ExecuteScalarAsync());
         }
 
-        // 3?? YENÝ BÝLDÝRÝM OLUÞTUR (Sistem veya Admin)
+
         [HttpPost]
         public async Task<ActionResult> Create(Bildirim model)
         {
             if (string.IsNullOrWhiteSpace(model.Baslik) || string.IsNullOrWhiteSpace(model.Mesaj))
-                return BadRequest("Baþlýk ve mesaj zorunludur.");
+                return BadRequest("BaÃ¾lÃ½k ve mesaj zorunludur.");
 
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
@@ -71,10 +69,9 @@ namespace EmlakYonetimAPI.Controllers
             cmd.Parameters.AddWithValue("@mesaj", model.Mesaj);
 
             await cmd.ExecuteNonQueryAsync();
-            return Ok("Bildirim gönderildi.");
+            return Ok("Bildirim gÃ¶nderildi.");
         }
 
-        // 4?? OKUNDU OLARAK ÝÞARETLE
         [HttpPut("read/{id}")]
         public async Task<ActionResult> MarkAsRead(int id)
         {
@@ -84,12 +81,12 @@ namespace EmlakYonetimAPI.Controllers
             cmd.Parameters.AddWithValue("@id", id);
 
             int aff = await cmd.ExecuteNonQueryAsync();
-            if (aff == 0) return NotFound("Bildirim bulunamadý.");
+            if (aff == 0) return NotFound("Bildirim bulunamadÃ½.");
 
-            return Ok("Okundu iþaretlendi.");
+            return Ok("Okundu iÃ¾aretlendi.");
         }
 
-        // 5?? TÜMÜNÜ OKUNDU ÝÞARETLE
+
         [HttpPut("read-all/{kullaniciId}")]
         public async Task<ActionResult> MarkAllRead(int kullaniciId)
         {
@@ -98,10 +95,10 @@ namespace EmlakYonetimAPI.Controllers
             var cmd = new SqlCommand("UPDATE Bildirim SET OkunduMu = 1, OkunmaTarihi = GETDATE() WHERE KullaniciID = @uid AND OkunduMu = 0", conn);
             cmd.Parameters.AddWithValue("@uid", kullaniciId);
             await cmd.ExecuteNonQueryAsync();
-            return Ok("Tüm bildirimler okundu.");
+            return Ok("TÃ¼m bildirimler okundu.");
         }
 
-        // 6?? SÝL
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -111,7 +108,7 @@ namespace EmlakYonetimAPI.Controllers
             cmd.Parameters.AddWithValue("@id", id);
 
             int aff = await cmd.ExecuteNonQueryAsync();
-            if (aff == 0) return NotFound("Bildirim bulunamadý.");
+            if (aff == 0) return NotFound("Bildirim bulunamadÃ½.");
 
             return Ok("Bildirim silindi.");
         }
