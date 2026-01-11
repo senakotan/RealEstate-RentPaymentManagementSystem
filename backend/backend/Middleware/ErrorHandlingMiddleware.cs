@@ -34,17 +34,15 @@ namespace EmlakYonetimAPI.Middleware
             var code = HttpStatusCode.InternalServerError;
             var message = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
 
-            // SQL Exception kontrolü (Foreign Key, Duplicate Key vb.)
             if (exception is SqlException sqlEx)
             {
                 code = HttpStatusCode.BadRequest;
                 
-                // Foreign Key Constraint Hatası (547)
                 if (sqlEx.Number == 547)
                 {
                     message = "Bu kayıt başka bir tabloda kullanıldığı için silinemez veya değiştirilemez. Lütfen önce ilişkili kayıtları kontrol edin.";
                 }
-                // Duplicate Key / Unique Constraint Hatası (2601, 2627)
+                
                 else if (sqlEx.Number == 2601 || sqlEx.Number == 2627)
                 {
                     if (sqlEx.Message.Contains("Email") || sqlEx.Message.Contains("email"))
@@ -65,7 +63,7 @@ namespace EmlakYonetimAPI.Middleware
                     message = "Veritabanı hatası: " + sqlEx.Message;
                 }
             }
-            // Özel hata türlerine göre HTTP status kodunu belirle
+
             else if (exception is ArgumentException || exception is ArgumentNullException)
             {
                 code = HttpStatusCode.BadRequest;
