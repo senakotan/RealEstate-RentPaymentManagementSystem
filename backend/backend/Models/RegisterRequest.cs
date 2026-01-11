@@ -18,7 +18,6 @@ namespace EmlakYonetimAPI.Models
         public string? Telefon { get; set; }
         public string? TCNo { get; set; }
 
-        // Rol seçimi (Owner veya Tenant, varsayılan: Owner)
         public string? RolAdi { get; set; }
     }
 }
