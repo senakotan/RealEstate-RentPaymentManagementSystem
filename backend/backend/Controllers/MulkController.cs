@@ -10,7 +10,6 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class MulkController : ControllerBase
     {
-        // 1?? TÜM MÜLKLERİ GETİR (JOIN ile)
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MulkDetayDto>>> GetAll(int? sahipId)
         {
@@ -50,7 +49,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2?? TEK MÜLK DETAY
         [HttpGet("{id}")]
         public async Task<ActionResult<MulkDetayDto>> GetById(int id)
         {
@@ -80,18 +78,17 @@ namespace EmlakYonetimAPI.Controllers
             using var reader = await cmd.ExecuteReaderAsync();
 
             if (!await reader.ReadAsync())
-                return NotFound("Mülk bulunamadı.");
+                return NotFound("MÃ¼lk bulunamadÃ½.");
 
             return Ok(MapToDto(reader));
         }
 
-        // 3?? CREATE (INSERT)
+
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] Mulk m)
         {
-            if (m == null) return BadRequest("Model boş.");
+            if (m == null) return BadRequest("Model boÃ¾.");
 
-            // Validasyonlar
             var validationError = ValidateMulk(m);
             if (validationError != null) return BadRequest(validationError);
 
@@ -100,11 +97,10 @@ namespace EmlakYonetimAPI.Controllers
                 using var conn = Connection.GetConnection();
                 await conn.OpenAsync();
 
-                // Kullanıcı ve İlçe kontrolü
                 if (!await ExistsAsync(conn, "Kullanici", "KullaniciID", m.SahipKullaniciID))
-                    return BadRequest("Geçersiz Kullanıcı ID.");
+                    return BadRequest("GeÃ§ersiz KullanÃ½cÃ½ ID.");
                 if (!await ExistsAsync(conn, "Ilce", "IlceID", m.IlceID))
-                    return BadRequest("Geçersiz İlçe ID.");
+                    return BadRequest("GeÃ§ersiz ÃlÃ§e ID.");
 
                 string sql = @"
                     INSERT INTO Mulk 
@@ -118,17 +114,15 @@ namespace EmlakYonetimAPI.Controllers
                 using var cmd = new SqlCommand(sql, conn);
                 AddParameters(cmd, m);
 
-                // Yeni ID'yi al
                 int newId = (int)await cmd.ExecuteScalarAsync();
-                return Ok(new { Message = "Mülk başarıyla eklendi.", MulkID = newId });
+                return Ok(new { Message = "MÃ¼lk baÃ¾arÃ½yla eklendi.", MulkID = newId });
             }
             catch (Exception ex)
             {
-                return BadRequest("Kayıt Hatası: " + ex.Message);
+                return BadRequest("KayÃ½t HatasÃ½: " + ex.Message);
             }
         }
 
-        // 4?? UPDATE
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, [FromBody] Mulk m)
         {
@@ -158,12 +152,12 @@ namespace EmlakYonetimAPI.Controllers
             AddParameters(cmd, m);
 
             int affected = await cmd.ExecuteNonQueryAsync();
-            if (affected == 0) return NotFound("Güncellenecek mülk bulunamadı.");
+            if (affected == 0) return NotFound("GÃ¼ncellenecek mÃ¼lk bulunamadÃ½.");
 
-            return Ok(new { Message = "Mülk güncellendi." });
+            return Ok(new { Message = "MÃ¼lk gÃ¼ncellendi." });
         }
 
-        // 5?? DELETE (Soft Delete)
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -175,14 +169,12 @@ namespace EmlakYonetimAPI.Controllers
             cmd.Parameters.AddWithValue("@id", id);
 
             int affected = await cmd.ExecuteNonQueryAsync();
-            if (affected == 0) return NotFound("Mülk bulunamadı.");
+            if (affected == 0) return NotFound("MÃ¼lk bulunamadÃ½.");
 
-            return Ok(new { Message = "Mülk pasife alındı." });
+            return Ok(new { Message = "MÃ¼lk pasife alÃ½ndÃ½." });
         }
 
-        // --- HELPER METOTLAR ---
 
-        // Veriyi DTO'ya çeviren güvenli metot
         private MulkDetayDto MapToDto(SqlDataReader r)
         {
             return new MulkDetayDto
@@ -204,7 +196,7 @@ namespace EmlakYonetimAPI.Controllers
             };
         }
 
-        // Parametreleri ekleyen yardımcı metot (Insert ve Update için ortak)
+
         private void AddParameters(SqlCommand cmd, Mulk m)
         {
             cmd.Parameters.AddWithValue("@Sahip", m.SahipKullaniciID);
@@ -221,22 +213,21 @@ namespace EmlakYonetimAPI.Controllers
             cmd.Parameters.AddWithValue("@Aciklama", (object?)m.Aciklama ?? DBNull.Value);
         }
 
-        // Validation mantığı
+
         private string? ValidateMulk(Mulk m)
         {
-            if (m.Metrekare <= 0) return "Metrekare 0'dan büyük olmalıdır.";
+            if (m.Metrekare <= 0) return "Metrekare 0'dan bÃ¼yÃ¼k olmalÃ½dÃ½r.";
 
-            // Oda sayısı '3+1' gibi format kontrolü
+
             if (!string.IsNullOrWhiteSpace(m.OdaSayisi) && !Regex.IsMatch(m.OdaSayisi, @"^\d+\+\d+$"))
-                return "Oda sayısı formatı hatalı (Örn: 2+1, 3+1).";
+                return "Oda sayÃ½sÃ½ formatÃ½ hatalÃ½ (Ã–rn: 2+1, 3+1).";
 
             if (m.AlimBedeli.HasValue && m.AlimBedeli.Value > 0 && (!m.ParaBirimiID.HasValue || m.ParaBirimiID == 0))
-                return "Alım bedeli girildiyse Para Birimi seçilmelidir.";
+                return "AlÃ½m bedeli girildiyse Para Birimi seÃ§ilmelidir.";
 
             return null;
         }
 
-        // Generic varlık kontrolü (Kullanıcı var mı? İlçe var mı?)
         private async Task<bool> ExistsAsync(SqlConnection conn, string tableName, string idColumn, int id)
         {
             string sql = $"SELECT COUNT(1) FROM {tableName} WHERE {idColumn} = @Id";
@@ -245,7 +236,7 @@ namespace EmlakYonetimAPI.Controllers
             return (int)await cmd.ExecuteScalarAsync() > 0;
         }
 
-        // --- GEÇİCİ İLÇE METOTLARI (İleride SozlukController'a taşınabilir) ---
+
         [HttpGet("ilceAra")]
         public async Task<ActionResult> IlceAra(int sehirId, string ad)
         {
