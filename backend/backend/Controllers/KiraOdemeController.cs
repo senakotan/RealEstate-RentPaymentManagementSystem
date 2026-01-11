@@ -10,7 +10,7 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class KiraOdemeController : ControllerBase
     {
-        // --- HELPER METOTLAR ---
+
 
         private async Task LogIslem(SqlConnection conn, int? kullaniciId, string islemTuru, string tabloAdi, string kayitId, string? detay = null)
         {
@@ -26,7 +26,7 @@ namespace EmlakYonetimAPI.Controllers
                 cmd.Parameters.AddWithValue("@Detay", (object?)detay ?? DBNull.Value);
                 await cmd.ExecuteNonQueryAsync();
             }
-            catch { /* Log hatasý akýþý bozmasýn */ }
+            catch { /* Log hatasÃ½ akÃ½Ã¾Ã½ bozmasÃ½n */ }
         }
 
         private async Task BildirimOlustur(SqlConnection conn, int kullaniciId, string baslik, string mesaj)
@@ -41,19 +41,19 @@ namespace EmlakYonetimAPI.Controllers
                 cmd.Parameters.AddWithValue("@Mesaj", mesaj);
                 await cmd.ExecuteNonQueryAsync();
             }
-            catch { /* Bildirim hatasý akýþý bozmasýn */ }
+            catch { /* Bildirim hatasÃ½ akÃ½Ã¾Ã½ bozmasÃ½n */ }
         }
 
         private async Task<int> GetOdemeDurumID(SqlConnection conn, string durumAdi)
         {
-            // Önce istenen durumu ara
+            
             string sql = "SELECT OdemeDurumID FROM OdemeDurum WHERE DurumAdi = @DurumAdi";
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@DurumAdi", durumAdi);
             var result = await cmd.ExecuteScalarAsync();
             if (result != null) return (int)result;
 
-            // Bulunamazsa 'Pending' ara
+       
             if (durumAdi != "Pending")
             {
                 cmd.Parameters["@DurumAdi"].Value = "Pending";
@@ -61,12 +61,12 @@ namespace EmlakYonetimAPI.Controllers
                 if (result != null) return (int)result;
             }
 
-            return 1; // Hiçbiri yoksa varsayýlan (Genelde 1: Paid veya Pending)
+            return 1; 
         }
 
         private async Task KontrolVeGuncelleLate(SqlConnection conn, int odemeId, DateTime vadeTarihi, DateTime? odemeTarihi, int mevcutDurumId)
         {
-            // Vade geçmiþ ve ödeme yapýlmamýþsa
+            
             if (vadeTarihi < DateTime.Now && !odemeTarihi.HasValue)
             {
                 int lateDurumId = await GetOdemeDurumID(conn, "Late");
@@ -79,11 +79,11 @@ namespace EmlakYonetimAPI.Controllers
                     cmd.Parameters.AddWithValue("@OdemeID", odemeId);
                     await cmd.ExecuteNonQueryAsync();
 
-                    // Mülk Sahibini Bul ve Bildirim Gönder
+                   
                     int? ownerId = await GetOwnerIdByOdeme(conn, odemeId);
                     if (ownerId.HasValue)
                     {
-                        await BildirimOlustur(conn, ownerId.Value, "Gecikmiþ Ödeme", $"Ödeme ID {odemeId} için vade tarihi geçti.");
+                        await BildirimOlustur(conn, ownerId.Value, "GecikmiÃ¾ Ã–deme", $"Ã–deme ID {odemeId} iÃ§in vade tarihi geÃ§ti.");
                     }
                 }
             }
@@ -102,9 +102,8 @@ namespace EmlakYonetimAPI.Controllers
             return res != null && res != DBNull.Value ? (int)res : null;
         }
 
-        // --- API ENDPOINTS ---
 
-        // 1?? TÜM ÖDEMELERÝ LÝSTELE
+    
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -131,8 +130,7 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2?? MÜLK SAHÝBÝNE AÝT ÖDEMELER (FÝNANS SAYFASI ÝÇÝN)
-        // Düzeltme: INNER JOIN yerine LEFT JOIN kullanýldý.
+        
         [HttpGet("owner/{ownerId}")]
         public async Task<ActionResult> GetByOwner(int ownerId)
         {
@@ -187,7 +185,7 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 3?? BELÝRLÝ BÝR SÖZLEÞMEYE AÝT ÖDEMELER (KÝRACI ÝÇÝN)
+    
         [HttpGet("sozlesme/{sozlesmeId}")]
         public async Task<ActionResult> GetBySozlesme(int sozlesmeId)
         {
@@ -216,7 +214,7 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 4?? GECÝKMÝÞ ÖDEMELER (LATE)
+     
         [HttpGet("late")]
         public async Task<ActionResult> GetLatePayments()
         {
@@ -247,16 +245,16 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 5?? ÖDEME YAP (TAHSÝLAT)
+    
         [HttpPut("pay/{id}")]
         public async Task<ActionResult> Pay(int id, [FromBody] PayOdemeRequest request)
         {
-            if (!ModelState.IsValid || request == null) return BadRequest("Geçersiz veri.");
+            if (!ModelState.IsValid || request == null) return BadRequest("GeÃ§ersiz veri.");
 
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Mevcut veriyi al
+        
             decimal tutar = 0;
             int? paraBirimiID = null;
 
@@ -265,16 +263,15 @@ namespace EmlakYonetimAPI.Controllers
             {
                 cmd.Parameters.AddWithValue("@id", id);
                 using var r = await cmd.ExecuteReaderAsync();
-                if (!await r.ReadAsync()) return NotFound("Ödeme bulunamadý.");
+                if (!await r.ReadAsync()) return NotFound("Ã–deme bulunamadÃ½.");
                 tutar = r.GetDecimal(0);
                 paraBirimiID = r.IsDBNull(1) ? null : r.GetInt32(1);
             }
 
-            // Yeni tutarý belirle
             if (request.Tutar.HasValue && request.Tutar.Value > 0) tutar = request.Tutar.Value;
             else if (!string.IsNullOrWhiteSpace(request.TutarString))
             {
-                // String temizleme (?, TL, boþluk vs.)
+                
                 string cleanVal = request.TutarString.Replace("?", "").Replace("TL", "").Trim().Replace(".", "").Replace(",", ".");
                 if (decimal.TryParse(cleanVal, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal pTutar)) tutar = pTutar;
             }
@@ -283,7 +280,6 @@ namespace EmlakYonetimAPI.Controllers
             int paidStateId = await GetOdemeDurumID(conn, "Paid");
             int? finalParaBirimi = request.ParaBirimiID ?? paraBirimiID;
 
-            // Güncelleme
             string updSql = @"UPDATE KiraOdeme SET 
                               OdemeTarihi=@ot, Tutar=@tut, OdemeDurumID=@stat, OdemeYontemID=@yontem, 
                               ParaBirimiID=@para, Aciklama=@acik 
@@ -301,27 +297,27 @@ namespace EmlakYonetimAPI.Controllers
                 await cmd.ExecuteNonQueryAsync();
             }
 
-            // Log ve Bildirim
+            
             int? ownerId = await GetOwnerIdByOdeme(conn, id);
             if (ownerId.HasValue)
             {
-                await LogIslem(conn, ownerId, "PAY", "KiraOdeme", id.ToString(), $"Ödeme alýndý: {tutar}");
-                await BildirimOlustur(conn, ownerId.Value, "Tahsilat", "Ödeme baþarýyla kaydedildi.");
+                await LogIslem(conn, ownerId, "PAY", "KiraOdeme", id.ToString(), $"Ã–deme alÃ½ndÃ½: {tutar}");
+                await BildirimOlustur(conn, ownerId.Value, "Tahsilat", "Ã–deme baÃ¾arÃ½yla kaydedildi.");
             }
 
             return Ok(new { Message = "Tahsilat kaydedildi." });
         }
 
-        // 6?? YENÝ ÖDEME PLANI OLUÞTUR (Create)
+        
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] KiraOdeme model)
         {
-            if (model.Tutar <= 0) return BadRequest("Tutar 0'dan büyük olmalý.");
+            if (model.Tutar <= 0) return BadRequest("Tutar 0'dan bÃ¼yÃ¼k olmalÃ½.");
 
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Durum Kontrolü
+        
             int durumId = model.OdemeDurumID;
             if (model.OdemeTarihi.HasValue) durumId = await GetOdemeDurumID(conn, "Paid");
             else if (model.VadeTarihi < DateTime.Now) durumId = await GetOdemeDurumID(conn, "Late");
@@ -340,9 +336,7 @@ namespace EmlakYonetimAPI.Controllers
                 cmd.Parameters.AddWithValue("@ot", (object?)model.OdemeTarihi ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@tut", model.Tutar);
 
-                // DÜZELTME BURADA:
-                // Eðer ID 0 veya null gelirse DBNull.Value gönderiyoruz.
-                // Veya varsayýlan olarak 1 (TRY) atayabilirsin: (object?)model.ParaBirimiID ?? 1;
+                
                 object paraBirimiVal = DBNull.Value;
                 if (model.ParaBirimiID != null && model.ParaBirimiID > 0)
                 {
@@ -360,20 +354,19 @@ namespace EmlakYonetimAPI.Controllers
             await KontrolVeGuncelleLate(conn, newId, model.VadeTarihi, model.OdemeTarihi, durumId);
 
             int? ownerId = await GetOwnerIdByOdeme(conn, newId);
-            await LogIslem(conn, ownerId, "INSERT", "KiraOdeme", newId.ToString(), $"Plan oluþturuldu. Vade: {model.VadeTarihi:yyyy-MM-dd}");
+            await LogIslem(conn, ownerId, "INSERT", "KiraOdeme", newId.ToString(), $"Plan oluÃ¾turuldu. Vade: {model.VadeTarihi:yyyy-MM-dd}");
 
-            return Ok(new { Message = "Ödeme planý oluþturuldu.", ID = newId });
+            return Ok(new { Message = "Ã–deme planÃ½ oluÃ¾turuldu.", ID = newId });
         }
-        // 7?? UPDATE (Düzeltme)
+     
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, [FromBody] KiraOdeme model)
         {
-            if (model.Tutar <= 0) return BadRequest("Hatalý tutar.");
+            if (model.Tutar <= 0) return BadRequest("HatalÃ½ tutar.");
 
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Durum hesapla
             int durumId = model.OdemeDurumID;
             if (model.OdemeTarihi.HasValue) durumId = await GetOdemeDurumID(conn, "Paid");
             else if (model.VadeTarihi < DateTime.Now) durumId = await GetOdemeDurumID(conn, "Late");
@@ -395,18 +388,18 @@ namespace EmlakYonetimAPI.Controllers
                 cmd.Parameters.AddWithValue("@acik", (object?)model.Aciklama ?? DBNull.Value);
 
                 int aff = await cmd.ExecuteNonQueryAsync();
-                if (aff == 0) return NotFound("Kayýt yok.");
+                if (aff == 0) return NotFound("KayÃ½t yok.");
             }
 
             await KontrolVeGuncelleLate(conn, id, model.VadeTarihi, model.OdemeTarihi, durumId);
 
             int? ownerId = await GetOwnerIdByOdeme(conn, id);
-            await LogIslem(conn, ownerId, "UPDATE", "KiraOdeme", id.ToString(), "Kayýt güncellendi.");
+            await LogIslem(conn, ownerId, "UPDATE", "KiraOdeme", id.ToString(), "KayÃ½t gÃ¼ncellendi.");
 
-            return Ok(new { Message = "Güncellendi." });
+            return Ok(new { Message = "GÃ¼ncellendi." });
         }
 
-        // 8?? DELETE
+     
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -420,14 +413,14 @@ namespace EmlakYonetimAPI.Controllers
             {
                 cmd.Parameters.AddWithValue("@id", id);
                 int aff = await cmd.ExecuteNonQueryAsync();
-                if (aff == 0) return NotFound("Silinecek kayýt bulunamadý.");
+                if (aff == 0) return NotFound("Silinecek kayÃ½t bulunamadÃ½.");
             }
 
-            await LogIslem(conn, ownerId, "DELETE", "KiraOdeme", id.ToString(), "Ödeme kaydý silindi.");
+            await LogIslem(conn, ownerId, "DELETE", "KiraOdeme", id.ToString(), "Ã–deme kaydÃ½ silindi.");
             return Ok(new { Message = "Silindi." });
         }
 
-        // --- MAPPING HELPER ---
+    
         private object MapToDto(SqlDataReader r)
         {
             return new
@@ -450,7 +443,7 @@ namespace EmlakYonetimAPI.Controllers
         }
     }
 
-    // DTO Sýnýfý
+ 
     public class PayOdemeRequest
     {
         public decimal? Tutar { get; set; }
