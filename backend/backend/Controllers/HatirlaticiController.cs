@@ -9,7 +9,6 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class HatirlaticiController : ControllerBase
     {
-        // --- HELPER METOTLAR ---
         private async Task LogIslem(SqlConnection conn, int? kullaniciId, string islemTuru, string tabloAdi, string kayitId, string? detay = null)
         {
             try
@@ -27,7 +26,6 @@ namespace EmlakYonetimAPI.Controllers
             catch { }
         }
 
-        // 1️⃣ LİSTELE (Kullanıcıya Göre)
         [HttpGet("kullanici/{kullaniciId}")]
         public async Task<ActionResult<IEnumerable<object>>> GetByKullanici(int kullaniciId, bool? aktifMi = true) // Varsayılan: Sadece aktifler
         {
@@ -78,7 +76,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2️⃣ YAKLAŞAN HATIRLATMALAR (Dashboard İçin)
         [HttpGet("yaklasan/{kullaniciId}")]
         public async Task<ActionResult<IEnumerable<object>>> GetYaklasan(int kullaniciId, int gunSayisi = 15)
         {
@@ -121,7 +118,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 3️⃣ DETAY GETİR
         [HttpGet("{id}")]
         public async Task<ActionResult<Hatirlatici>> GetById(int id)
         {
@@ -151,7 +147,7 @@ namespace EmlakYonetimAPI.Controllers
             });
         }
 
-        // 4️⃣ YENİ HATIRLATICI OLUŞTUR
+
         [HttpPost]
         public async Task<ActionResult> Create(Hatirlatici model)
         {
@@ -182,7 +178,7 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(new { Message = "Hatırlatıcı oluşturuldu.", ID = newId });
         }
 
-        // 5️⃣ GÜNCELLE
+
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, Hatirlatici model)
         {
@@ -216,14 +212,12 @@ namespace EmlakYonetimAPI.Controllers
             return Ok("Hatırlatıcı güncellendi.");
         }
 
-        // 6️⃣ SİL (Soft Delete - Pasife Çekme)
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Önce kullanıcı ID'sini al (log için)
             int? userId = null;
             string selSql = "SELECT KullaniciID FROM Hatirlatici WHERE HatirlaticiID=@id";
             using (var selCmd = new SqlCommand(selSql, conn))
@@ -233,7 +227,6 @@ namespace EmlakYonetimAPI.Controllers
                 if (res != null) userId = (int)res;
             }
 
-            // Pasife çek
             string sql = "UPDATE Hatirlatici SET AktifMi = 0 WHERE HatirlaticiID = @id";
 
             using var cmd = new SqlCommand(sql, conn);
