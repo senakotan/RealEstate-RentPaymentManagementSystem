@@ -6,7 +6,6 @@ namespace EmlakYonetimAPI.Models
     {
         public DateTime? OdemeTarihi { get; set; }
         
-        // Tutar hem decimal hem string olarak gelebilir
         public decimal? Tutar { get; set; }
         public string? TutarString { get; set; }
         
