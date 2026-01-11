@@ -9,7 +9,7 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class KiraSozlesmeController : ControllerBase
     {
-        // --- HELPER METOTLAR (Senin yazdýklarýný korudum) ---
+      
 
         private async Task LogIslem(SqlConnection conn, int? kullaniciId, string islemTuru, string tabloAdi, string kayitId, string? detay = null)
         {
@@ -24,7 +24,7 @@ namespace EmlakYonetimAPI.Controllers
                 cmd.Parameters.AddWithValue("@Detay", (object?)detay ?? DBNull.Value);
                 await cmd.ExecuteNonQueryAsync();
             }
-            catch { /* Log hatasý akýþý bozmasýn */ }
+            catch { /* Log hatasÃ½ akÃ½Ã¾Ã½ bozmasÃ½n */ }
         }
 
         private async Task BildirimOlustur(SqlConnection conn, int kullaniciId, string baslik, string mesaj)
@@ -38,7 +38,7 @@ namespace EmlakYonetimAPI.Controllers
                 cmd.Parameters.AddWithValue("@Mesaj", mesaj);
                 await cmd.ExecuteNonQueryAsync();
             }
-            catch { /* Bildirim hatasý akýþý bozmasýn */ }
+            catch { /* Bildirim hatasÃ½ akÃ½Ã¾Ã½ bozmasÃ½n */ }
         }
 
         private async Task<bool> TarihCakismasiVar(SqlConnection conn, int mulkId, DateTime baslangic, DateTime? bitis, int? mevcutSozlesmeId = null)
@@ -60,11 +60,7 @@ namespace EmlakYonetimAPI.Controllers
             return (int)await cmd.ExecuteScalarAsync() > 0;
         }
 
-        // --- API METOTLARI ---
-
-        // 1?? AKILLI LÝSTELEME (Rol Bazlý)
-        // Eðer Owner girerse: Kendi mülklerinin sözleþmelerini görür.
-        // Eðer Tenant girerse: Kendi email adresine tanýmlý sözleþmeleri görür.
+       
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SozlesmeDetayDto>>> GetAll(int userId, string role)
         {
@@ -76,7 +72,7 @@ namespace EmlakYonetimAPI.Controllers
 
             if (role == "Owner")
             {
-                // Mülk sahibi sadece kendi mülklerine baðlý sözleþmeleri görür
+                
                 sql = @"
                     SELECT KS.*, M.Baslik AS MulkBaslik, M.Adres AS MulkAdres, 
                            KiraciUser.AdSoyad AS KiraciAd, PB.Kod AS ParaBirimiKod,
@@ -92,7 +88,7 @@ namespace EmlakYonetimAPI.Controllers
             }
             else if (role == "Tenant")
             {
-                // Kiracý, Kendi KullaniciID'si ile eþleþen Kiracý kayýtlarýna ait sözleþmeleri görür
+                
                 sql = @"
                     SELECT KS.*, M.Baslik AS MulkBaslik, M.Adres AS MulkAdres, 
                            KiraciUser.AdSoyad AS KiraciAd, PB.Kod AS ParaBirimiKod,
@@ -108,7 +104,7 @@ namespace EmlakYonetimAPI.Controllers
             }
             else if (role == "Admin")
             {
-                // Admin tüm sözleþmeleri görür
+               
                 sql = @"
                     SELECT KS.*, M.Baslik AS MulkBaslik, M.Adres AS MulkAdres, 
                            KiraciUser.AdSoyad AS KiraciAd, PB.Kod AS ParaBirimiKod,
@@ -123,7 +119,7 @@ namespace EmlakYonetimAPI.Controllers
             }
             else
             {
-                return BadRequest("Geçersiz rol. 'Owner', 'Tenant' veya 'Admin' gönderilmelidir.");
+                return BadRequest("GeÃ§ersiz rol. 'Owner', 'Tenant' veya 'Admin' gÃ¶nderilmelidir.");
             }
 
             using var cmd = new SqlCommand(sql, conn);
@@ -160,24 +156,23 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2?? CREATE (Senin kodun + Ufak geliþtirmeler)
+        
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] KiraSozlesme model)
         {
-            if (model == null) return BadRequest("Model boþ.");
+            if (model == null) return BadRequest("Model boÃ¾.");
 
-            // Basit Validasyonlar
-            if (model.AylikKiraTutar <= 0) return BadRequest("Kira tutarý 0'dan büyük olmalý.");
-            if (model.OdemeGunu < 1 || model.OdemeGunu > 31) return BadRequest("Ödeme günü 1-31 arasýnda olmalý.");
+           
+            if (model.AylikKiraTutar <= 0) return BadRequest("Kira tutarÃ½ 0'dan bÃ¼yÃ¼k olmalÃ½.");
+            if (model.OdemeGunu < 1 || model.OdemeGunu > 31) return BadRequest("Ã–deme gÃ¼nÃ¼ 1-31 arasÃ½nda olmalÃ½.");
 
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Tarih Çakýþmasý Kontrolü
+           
             if (await TarihCakismasiVar(conn, model.MulkID, model.BaslangicTarihi, model.BitisTarihi))
-                return BadRequest("Bu mülkte, bu tarihlerde zaten aktif bir sözleþme var.");
+                return BadRequest("Bu mÃ¼lkte, bu tarihlerde zaten aktif bir sÃ¶zleÃ¾me var.");
 
-            // Mülk Sahibini Bul (Log ve Bildirim için)
             int? sahipId = null;
             string sahipSql = "SELECT SahipKullaniciID FROM Mulk WHERE MulkID = @MulkID";
             using (var cmdSahip = new SqlCommand(sahipSql, conn))
@@ -187,11 +182,10 @@ namespace EmlakYonetimAPI.Controllers
                 if (result != DBNull.Value) sahipId = Convert.ToInt32(result);
             }
 
-            // Transaction Baþlat (Veri tutarlýlýðý için önemli)
             using var trans = conn.BeginTransaction();
             try
             {
-                // A. Sözleþmeyi Ekle
+               
                 string sql = @"
                     INSERT INTO KiraSozlesme 
                     (MulkID, KiraciID, SozlesmeNo, BaslangicTarihi, BitisTarihi, AylikKiraTutar, ParaBirimiID, DepozitoTutar, OdemeGunu, AktifMi, Aciklama, OlusturmaTarihi)
@@ -204,7 +198,7 @@ namespace EmlakYonetimAPI.Controllers
                 {
                     cmd.Parameters.AddWithValue("@MulkID", model.MulkID);
                     cmd.Parameters.AddWithValue("@KiraciID", model.KiraciID);
-                    // Rastgele sözleþme no üret
+            
                     cmd.Parameters.AddWithValue("@SozlesmeNo", Guid.NewGuid().ToString().Substring(0, 8).ToUpper());
                     cmd.Parameters.AddWithValue("@Bas", model.BaslangicTarihi);
                     cmd.Parameters.AddWithValue("@Bit", (object?)model.BitisTarihi ?? DBNull.Value);
@@ -216,15 +210,13 @@ namespace EmlakYonetimAPI.Controllers
                     yeniId = (int)await cmd.ExecuteScalarAsync();
                 }
 
-                // B. Ýlk Ayýn Ödeme Kaydýný Oluþtur (Bekleniyor olarak)
-                // Bu sayede kiracý sisteme girdiðinde 'Ödemem gereken kira' diye görür.
+               
                 string sqlOdeme = @"
                     INSERT INTO KiraOdeme (KiraSozlesmeID, VadeTarihi, Tutar, ParaBirimiID, OdemeDurumID, OlusturmaTarihi)
-                    VALUES (@SozlesmeID, @Vade, @Tutar, @Para, 3, GETDATE())"; // 3 = Pending ID varsayýmý
+                    VALUES (@SozlesmeID, @Vade, @Tutar, @Para, 3, GETDATE())"; // 3 = Pending ID varsayÃ½mÃ½
 
                 using (var cmdOdeme = new SqlCommand(sqlOdeme, conn, trans))
                 {
-                    // Vade tarihi: Baþlangýç ayýnýn ödeme günü
                     DateTime ilkVade = new DateTime(model.BaslangicTarihi.Year, model.BaslangicTarihi.Month, model.OdemeGunu);
 
                     cmdOdeme.Parameters.AddWithValue("@SozlesmeID", yeniId);
@@ -234,26 +226,25 @@ namespace EmlakYonetimAPI.Controllers
                     await cmdOdeme.ExecuteNonQueryAsync();
                 }
 
-                // C. Log ve Bildirim (Helper metodlarý Transaction içinde çaðýrmýyoruz, Transaction bitince çaðýrýrýz)
+
                 trans.Commit();
 
-                // Ýþlem baþarýlýysa logla
                 if (sahipId.HasValue)
                 {
-                    await LogIslem(conn, sahipId, "INSERT", "KiraSozlesme", yeniId.ToString(), $"Yeni sözleþme. Tutar: {model.AylikKiraTutar}");
-                    await BildirimOlustur(conn, sahipId.Value, "Sözleþme Oluþturuldu", $"{model.MulkID} nolu mülk için sözleþme aktif edildi.");
+                    await LogIslem(conn, sahipId, "INSERT", "KiraSozlesme", yeniId.ToString(), $"Yeni sÃ¶zleÃ¾me. Tutar: {model.AylikKiraTutar}");
+                    await BildirimOlustur(conn, sahipId.Value, "SÃ¶zleÃ¾me OluÃ¾turuldu", $"{model.MulkID} nolu mÃ¼lk iÃ§in sÃ¶zleÃ¾me aktif edildi.");
                 }
 
-                return Ok(new { Message = "Sözleþme baþarýyla oluþturuldu.", SozlesmeID = yeniId });
+                return Ok(new { Message = "SÃ¶zleÃ¾me baÃ¾arÃ½yla oluÃ¾turuldu.", SozlesmeID = yeniId });
             }
             catch (Exception ex)
             {
                 trans.Rollback();
-                return BadRequest("Hata oluþtu: " + ex.Message);
+                return BadRequest("Hata oluÃ¾tu: " + ex.Message);
             }
         }
 
-        // 3?? DELETE (Soft Delete) - Pasife Çekme
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -265,11 +256,10 @@ namespace EmlakYonetimAPI.Controllers
             cmd.Parameters.AddWithValue("@id", id);
 
             int affected = await cmd.ExecuteNonQueryAsync();
-            if (affected > 0) return Ok(new { Message = "Sözleþme pasife alýndý." });
-            return NotFound("Sözleþme bulunamadý.");
+            if (affected > 0) return Ok(new { Message = "SÃ¶zleÃ¾me pasife alÃ½ndÃ½." });
+            return NotFound("SÃ¶zleÃ¾me bulunamadÃ½.");
         }
 
-        // 4?? ID'ye Göre Getir (Detay)
         [HttpGet("{id}")]
         public async Task<ActionResult<SozlesmeDetayDto>> GetById(int id)
         {
@@ -317,12 +307,10 @@ namespace EmlakYonetimAPI.Controllers
                 return Ok(dto);
             }
 
-            return NotFound("Sözleþme bulunamadý.");
+            return NotFound("SÃ¶zleÃ¾me bulunamadÃ½.");
         }
 
 
-
-        // ?? EKLENECEK METOT: Mülk Sahibine Ait Tüm Ödemeler (Finans Sayfasý Ýçin)
         [HttpGet("owner/{ownerId}")]
         public async Task<ActionResult> GetByOwner(int ownerId)
         {
@@ -352,7 +340,7 @@ namespace EmlakYonetimAPI.Controllers
                 ORDER BY 
                     CASE WHEN OD.DurumAdi = 'Late' THEN 1 
                          WHEN OD.DurumAdi = 'Pending' THEN 2 
-                         ELSE 3 END, -- Önce Gecikenler, Sonra Bekleyenler
+                         ELSE 3 END, -- Ã–nce Gecikenler, Sonra Bekleyenler
                     KO.VadeTarihi ASC";
 
             using var cmd = new SqlCommand(sql, conn);
@@ -377,7 +365,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 5?? UPDATE (Sözleþme Düzenleme)
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, [FromBody] KiraSozlesme model)
         {
@@ -386,24 +373,24 @@ namespace EmlakYonetimAPI.Controllers
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Mevcut sözleþmeyi kontrol et
+
             string checkSql = "SELECT COUNT(*) FROM KiraSozlesme WHERE KiraSozlesmeID = @id";
             using (var checkCmd = new SqlCommand(checkSql, conn))
             {
                 checkCmd.Parameters.AddWithValue("@id", id);
                 if ((int)await checkCmd.ExecuteScalarAsync() == 0)
-                    return NotFound("Sözleþme bulunamadý.");
+                    return NotFound("SÃ¶zleÃ¾me bulunamadÃ½.");
             }
 
-            // Tarih Çakýþmasý Kontrolü (mevcut sözleþme hariç)
+
             if (await TarihCakismasiVar(conn, model.MulkID, model.BaslangicTarihi, model.BitisTarihi, id))
-                return BadRequest("Bu mülkte, bu tarihlerde zaten aktif bir sözleþme var.");
+                return BadRequest("Bu mÃ¼lkte, bu tarihlerde zaten aktif bir sÃ¶zleÃ¾me var.");
 
-            // Ödeme günü kontrolü
+
             if (model.OdemeGunu < 1 || model.OdemeGunu > 31)
-                return BadRequest("Ödeme günü 1-31 arasýnda olmalýdýr.");
+                return BadRequest("Ã–deme gÃ¼nÃ¼ 1-31 arasÃ½nda olmalÃ½dÃ½r.");
 
-            // Mülk Sahibini Bul (Log için)
+
             int? sahipId = null;
             string sahipSql = "SELECT SahipKullaniciID FROM Mulk WHERE MulkID = @MulkID";
             using (var cmdSahip = new SqlCommand(sahipSql, conn))
@@ -416,7 +403,6 @@ namespace EmlakYonetimAPI.Controllers
             using var trans = conn.BeginTransaction();
             try
             {
-                // Sözleþmeyi Güncelle
                 string sql = @"
                     UPDATE KiraSozlesme SET
                         MulkID = @MulkID,
@@ -446,16 +432,15 @@ namespace EmlakYonetimAPI.Controllers
 
                 await cmd.ExecuteNonQueryAsync();
 
-                // Log Kaydý
-                await LogIslem(conn, sahipId, "UPDATE", "KiraSozlesme", id.ToString(), $"Sözleþme güncellendi: {id}");
+                await LogIslem(conn, sahipId, "UPDATE", "KiraSozlesme", id.ToString(), $"SÃ¶zleÃ¾me gÃ¼ncellendi: {id}");
 
                 trans.Commit();
-                return Ok(new { Message = "Sözleþme güncellendi." });
+                return Ok(new { Message = "SÃ¶zleÃ¾me gÃ¼ncellendi." });
             }
             catch (Exception ex)
             {
                 trans.Rollback();
-                return StatusCode(500, new { Message = "Sözleþme güncellenirken hata oluþtu: " + ex.Message });
+                return StatusCode(500, new { Message = "SÃ¶zleÃ¾me gÃ¼ncellenirken hata oluÃ¾tu: " + ex.Message });
             }
         }
 
