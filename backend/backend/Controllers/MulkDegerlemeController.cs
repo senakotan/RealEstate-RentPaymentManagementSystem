@@ -9,7 +9,6 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class MulkDegerlemeController : ControllerBase
     {
-        // 1️⃣ MÜLK DEĞERLEMELERİNİ GETİR
         [HttpGet("mulk/{mulkId}")]
         public async Task<ActionResult<IEnumerable<object>>> GetByMulk(int mulkId)
         {
@@ -52,7 +51,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2️⃣ DEĞERLEME EKLE
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] MulkDegerleme model)
         {
@@ -65,14 +63,12 @@ namespace EmlakYonetimAPI.Controllers
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Mülk kontrolü
             string checkSql = "SELECT COUNT(1) FROM Mulk WHERE MulkID = @id";
             using var checkCmd = new SqlCommand(checkSql, conn);
             checkCmd.Parameters.AddWithValue("@id", model.MulkID);
             if ((int)await checkCmd.ExecuteScalarAsync() == 0)
                 return BadRequest("Geçersiz Mülk ID.");
 
-            // Para birimi kontrolü
             checkSql = "SELECT COUNT(1) FROM ParaBirimi WHERE ParaBirimiID = @id";
             using var checkCmd2 = new SqlCommand(checkSql, conn);
             checkCmd2.Parameters.AddWithValue("@id", model.ParaBirimiID);
@@ -96,7 +92,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(new { Message = "Değerleme eklendi.", MulkDegerlemeID = newId });
         }
 
-        // 3️⃣ DEĞERLEME SİL
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
