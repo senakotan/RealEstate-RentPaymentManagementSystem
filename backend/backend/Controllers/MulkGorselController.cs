@@ -18,13 +18,12 @@ namespace EmlakYonetimAPI.Controllers
             _environment = environment;
             _uploadPath = Path.Combine(_environment.ContentRootPath, "wwwroot", "uploads", "gorseller");
             
-            // Klasör yoksa oluştur
             if (!Directory.Exists(_uploadPath))
             {
                 Directory.CreateDirectory(_uploadPath);
             }
         }
-        // 1️⃣ MÜLK GÖRSELLERİNİ GETİR
+        
         [HttpGet("mulk/{mulkId}")]
         public async Task<ActionResult<IEnumerable<object>>> GetByMulk(int mulkId)
         {
@@ -62,45 +61,37 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2️⃣ GÖRSEL EKLE (Dosya Yükleme)
         [HttpPost("upload")]
         public async Task<ActionResult> UploadImage([FromForm] int mulkID, [FromForm] string? aciklama, IFormFile? file)
         {
-            // Dosya kontrolü
             if (file == null || file.Length == 0)
                 return BadRequest("Dosya seçilmedi.");
 
-            // Dosya tipi kontrolü (sadece resim)
             var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
             var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
             if (!allowedExtensions.Contains(fileExtension))
                 return BadRequest("Sadece resim dosyaları yüklenebilir (JPG, PNG, GIF, WEBP).");
 
-            // Dosya boyutu kontrolü (max 10MB)
             if (file.Length > 10 * 1024 * 1024)
                 return BadRequest("Dosya boyutu 10MB'dan küçük olmalıdır.");
 
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Mülk kontrolü
             string checkSql = "SELECT COUNT(1) FROM Mulk WHERE MulkID = @id";
             using var checkCmd = new SqlCommand(checkSql, conn);
             checkCmd.Parameters.AddWithValue("@id", mulkID);
             if ((int)await checkCmd.ExecuteScalarAsync() == 0)
                 return BadRequest("Geçersiz Mülk ID.");
 
-            // Benzersiz dosya adı oluştur
             var fileName = $"{Guid.NewGuid()}{fileExtension}";
             var filePath = Path.Combine(_uploadPath, fileName);
 
-            // Dosyayı kaydet
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            // Veritabanına kaydet
             var relativePath = $"/uploads/gorseller/{fileName}";
             string sql = @"
                 INSERT INTO MulkGorsel (MulkID, DosyaYolu, Aciklama, YuklemeTarihi, AktifMi)
@@ -116,7 +107,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(new { Message = "Görsel eklendi.", MulkGorselID = newId, DosyaYolu = relativePath });
         }
 
-        // 2️⃣ GÖRSEL EKLE (URL - Eski yöntem, geriye dönük uyumluluk için)
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] MulkGorsel model)
         {
@@ -126,7 +116,6 @@ namespace EmlakYonetimAPI.Controllers
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Mülk kontrolü
             string checkSql = "SELECT COUNT(1) FROM Mulk WHERE MulkID = @id";
             using var checkCmd = new SqlCommand(checkSql, conn);
             checkCmd.Parameters.AddWithValue("@id", model.MulkID);
@@ -147,7 +136,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(new { Message = "Görsel eklendi.", MulkGorselID = newId });
         }
 
-        // 3️⃣ GÖRSEL SİL (Soft Delete + Dosya Silme)
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -157,7 +145,6 @@ namespace EmlakYonetimAPI.Controllers
             {
                 await conn.OpenAsync();
 
-                // Önce dosya yolunu al
                 string getPathSql = "SELECT DosyaYolu FROM MulkGorsel WHERE MulkGorselID = @id";
                 using (var getCmd = new SqlCommand(getPathSql, conn))
                 {
@@ -169,7 +156,6 @@ namespace EmlakYonetimAPI.Controllers
                     }
                 }
 
-                // Veritabanından sil (soft delete)
                 string sql = "UPDATE MulkGorsel SET AktifMi = 0 WHERE MulkGorselID = @id";
                 using var cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", id);
@@ -178,12 +164,12 @@ namespace EmlakYonetimAPI.Controllers
                 if (affected == 0) return NotFound("Görsel bulunamadı.");
             }
 
-            // Dosyayı da sil (eğer uploads klasöründeyse) - Connection kapandıktan sonra
+
             if (!string.IsNullOrEmpty(filePath))
             {
                 try
                 {
-                    // Hem /uploads/ hem de uploads/ formatlarını kontrol et
+                    
                     string normalizedPath = filePath.TrimStart('/');
                     if (normalizedPath.StartsWith("uploads/"))
                     {
@@ -196,8 +182,7 @@ namespace EmlakYonetimAPI.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Dosya silme hatası kritik değil, ama loglanabilir
-                    // Hata olsa bile veritabanından silindiği için işlem başarılı sayılır
+                 
                 }
             }
 
