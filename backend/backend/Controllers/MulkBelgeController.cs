@@ -18,13 +18,12 @@ namespace EmlakYonetimAPI.Controllers
             _environment = environment;
             _uploadPath = Path.Combine(_environment.ContentRootPath, "wwwroot", "uploads", "belgeler");
             
-            // Klasör yoksa oluştur
             if (!Directory.Exists(_uploadPath))
             {
                 Directory.CreateDirectory(_uploadPath);
             }
         }
-        // 1️⃣ MÜLK BELGELERİNİ GETİR
+        
         [HttpGet("mulk/{mulkId}")]
         public async Task<ActionResult<IEnumerable<object>>> GetByMulk(int mulkId)
         {
@@ -62,48 +61,41 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2️⃣ BELGE EKLE (Dosya Yükleme)
         [HttpPost("upload")]
         public async Task<ActionResult> UploadDocument([FromForm] int mulkID, [FromForm] string belgeTuru, [FromForm] string? aciklama, IFormFile? file)
         {
-            // Dosya kontrolü
             if (file == null || file.Length == 0)
                 return BadRequest("Dosya seçilmedi.");
 
             if (string.IsNullOrWhiteSpace(belgeTuru))
                 return BadRequest("Belge türü zorunludur.");
 
-            // Dosya tipi kontrolü (PDF, DOC, DOCX, XLS, XLSX, JPG, PNG)
             var allowedExtensions = new[] { ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".jpg", ".jpeg", ".png" };
             var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
             if (!allowedExtensions.Contains(fileExtension))
                 return BadRequest("Desteklenmeyen dosya formatı. PDF, DOC, DOCX, XLS, XLSX, JPG, PNG formatları kabul edilir.");
 
-            // Dosya boyutu kontrolü (max 20MB)
             if (file.Length > 20 * 1024 * 1024)
                 return BadRequest("Dosya boyutu 20MB'dan küçük olmalıdır.");
 
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Mülk kontrolü
             string checkSql = "SELECT COUNT(1) FROM Mulk WHERE MulkID = @id";
             using var checkCmd = new SqlCommand(checkSql, conn);
             checkCmd.Parameters.AddWithValue("@id", mulkID);
             if ((int)await checkCmd.ExecuteScalarAsync() == 0)
                 return BadRequest("Geçersiz Mülk ID.");
 
-            // Benzersiz dosya adı oluştur
             var fileName = $"{Guid.NewGuid()}{fileExtension}";
             var filePath = Path.Combine(_uploadPath, fileName);
 
-            // Dosyayı kaydet
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            // Veritabanına kaydet
+
             var relativePath = $"/uploads/belgeler/{fileName}";
             string sql = @"
                 INSERT INTO MulkBelge (MulkID, BelgeTuru, DosyaYolu, Aciklama, YuklemeTarihi)
@@ -120,7 +112,7 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(new { Message = "Belge eklendi.", MulkBelgeID = newId, DosyaYolu = relativePath });
         }
 
-        // 2️⃣ BELGE EKLE (URL - Eski yöntem, geriye dönük uyumluluk için)
+
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] MulkBelge model)
         {
@@ -155,7 +147,7 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(new { Message = "Belge eklendi.", MulkBelgeID = newId });
         }
 
-        // 3️⃣ BELGE SİL (Dosya Silme ile)
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -165,7 +157,6 @@ namespace EmlakYonetimAPI.Controllers
             {
                 await conn.OpenAsync();
 
-                // Önce dosya yolunu al
                 string getPathSql = "SELECT DosyaYolu FROM MulkBelge WHERE MulkBelgeID = @id";
                 using (var getCmd = new SqlCommand(getPathSql, conn))
                 {
@@ -177,7 +168,6 @@ namespace EmlakYonetimAPI.Controllers
                     }
                 }
 
-                // Veritabanından sil
                 string sql = "DELETE FROM MulkBelge WHERE MulkBelgeID = @id";
                 using var cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", id);
@@ -185,13 +175,11 @@ namespace EmlakYonetimAPI.Controllers
                 int affected = await cmd.ExecuteNonQueryAsync();
                 if (affected == 0) return NotFound("Belge bulunamadı.");
             }
-
-            // Dosyayı da sil (eğer uploads klasöründeyse) - Connection kapandıktan sonra
+            
             if (!string.IsNullOrEmpty(filePath))
             {
                 try
                 {
-                    // Hem /uploads/ hem de uploads/ formatlarını kontrol et
                     string normalizedPath = filePath.TrimStart('/');
                     if (normalizedPath.StartsWith("uploads/"))
                     {
@@ -204,8 +192,7 @@ namespace EmlakYonetimAPI.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Dosya silme hatası kritik değil, ama loglanabilir
-                    // Hata olsa bile veritabanından silindiği için işlem başarılı sayılır
+
                 }
             }
 
