@@ -13,12 +13,11 @@ namespace EmlakYonetimAPI.Controllers
         public async Task<ActionResult> Login(LoginRequest request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Sifre))
-                return BadRequest("Email ve þifre zorunludur.");
+                return BadRequest("Email ve Ã¾ifre zorunludur.");
 
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Þifre hashlenmeden direkt kontrol ediliyor
             var sql = @"
                 SELECT K.KullaniciID, K.AdSoyad, K.Email, K.Telefon, K.TCNo, K.AktifMi, K.KayitTarihi, R.RolAdi
                 FROM Kullanici K
@@ -46,10 +45,10 @@ namespace EmlakYonetimAPI.Controllers
                     Rol = reader.IsDBNull(7) ? "User" : reader.GetString(7)
                 };
 
-                return Ok(new { Message = "Giriþ baþarýlý", User = user });
+                return Ok(new { Message = "GiriÃ¾ baÃ¾arÃ½lÃ½", User = user });
             }
 
-            return Unauthorized("Email veya þifre hatalý!");
+            return Unauthorized("Email veya Ã¾ifre hatalÃ½!");
         }
     }
 }
