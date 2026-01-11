@@ -9,7 +9,6 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class BankaHesapController : ControllerBase
     {
-        // 1️⃣ KULLANICININ HESAPLARI
         [HttpGet("user/{userId}")]
         public async Task<ActionResult> GetByUser(int userId)
         {
@@ -42,7 +41,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2️⃣ YENİ HESAP EKLE
         [HttpPost]
         public async Task<ActionResult> Create(BankaHesap model)
         {
@@ -51,7 +49,6 @@ namespace EmlakYonetimAPI.Controllers
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // IBAN unique mi?
             var checkCmd = new SqlCommand("SELECT COUNT(*) FROM BankaHesap WHERE Iban = @iban", conn);
             checkCmd.Parameters.AddWithValue("@iban", model.Iban);
             if ((int)await checkCmd.ExecuteScalarAsync() > 0)
@@ -70,7 +67,7 @@ namespace EmlakYonetimAPI.Controllers
             return Ok("Banka hesabı eklendi.");
         }
 
-        // 3️⃣ HESAP GÜNCELLE
+
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, BankaHesap model)
         {
@@ -94,7 +91,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok("Hesap güncellendi.");
         }
 
-        // 4️⃣ SİL (Soft Delete)
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
