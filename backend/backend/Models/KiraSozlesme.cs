@@ -13,8 +13,8 @@ namespace EmlakYonetimAPI.Models
         public decimal AylikKiraTutar { get; set; }
         public int ParaBirimiID { get; set; }
         public decimal? DepozitoTutar { get; set; }
-        public byte OdemeGunu { get; set; } // 1-31 arasý
-
+        public byte OdemeGunu { get; set; } 
+        
         public bool AktifMi { get; set; } = true;
         public string? Aciklama { get; set; }
         public DateTime OlusturmaTarihi { get; set; }
