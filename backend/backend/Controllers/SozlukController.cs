@@ -10,8 +10,7 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class SozlukController : ControllerBase
     {
-        // ?? EN ÷NEML› METOT: T¸m sˆzl¸k verilerini TEK SEFERDE getirir.
-        // Frontend aÁ˝l˝˛ta bunu Áa˝r˝p her ˛eyi cache'leyebilir.
+    
         [HttpGet("all")]
         public async Task<ActionResult> GetAllLookups()
         {
@@ -20,7 +19,6 @@ namespace EmlakYonetimAPI.Controllers
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Tek bir SQL string iÁinde hepsini istiyoruz
             string sql = @"
                 SELECT * FROM Sehir ORDER BY SehirAdi;
                 SELECT * FROM Ilce ORDER BY IlceAdi;
@@ -33,7 +31,6 @@ namespace EmlakYonetimAPI.Controllers
             using var cmd = new SqlCommand(sql, conn);
             using var reader = await cmd.ExecuteReaderAsync();
 
-            // 1. ﬁehirler
             var sehirler = new List<Sehir>();
             while (await reader.ReadAsync())
             {
@@ -41,7 +38,6 @@ namespace EmlakYonetimAPI.Controllers
             }
             result["Sehir"] = sehirler;
 
-            // 2. ›lÁeler (Sonraki SonuÁ K¸mesi)
             await reader.NextResultAsync();
             var ilceler = new List<Ilce>();
             while (await reader.ReadAsync())
@@ -50,7 +46,6 @@ namespace EmlakYonetimAPI.Controllers
             }
             result["Ilce"] = ilceler;
 
-            // 3. M¸lk T¸rleri
             await reader.NextResultAsync();
             var mulkTurleri = new List<MulkTuru>();
             while (await reader.ReadAsync())
@@ -64,7 +59,6 @@ namespace EmlakYonetimAPI.Controllers
             }
             result["MulkTuru"] = mulkTurleri;
 
-            // 4. Para Birimleri
             await reader.NextResultAsync();
             var paraBirimleri = new List<ParaBirimi>();
             while (await reader.ReadAsync())
@@ -79,7 +73,6 @@ namespace EmlakYonetimAPI.Controllers
             }
             result["ParaBirimi"] = paraBirimleri;
 
-            // 5. ÷deme Durumlar˝
             await reader.NextResultAsync();
             var odemeDurumlari = new List<OdemeDurum>();
             while (await reader.ReadAsync())
@@ -93,7 +86,6 @@ namespace EmlakYonetimAPI.Controllers
             }
             result["OdemeDurum"] = odemeDurumlari;
 
-            // 6. ÷deme Yˆntemleri
             await reader.NextResultAsync();
             var odemeYontemleri = new List<OdemeYontem>();
             while (await reader.ReadAsync())
@@ -110,7 +102,7 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(result);
         }
 
-        // --- TEKL› ENDPOINTLER (›htiyaÁ duyulursa diye korudum) ---
+
 
         [HttpGet("sehir")]
         public async Task<ActionResult> GetSehirler()
@@ -135,7 +127,7 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // Genel ›statistikler (Optimize Edildi - Tek Sorgu)
+
         [HttpGet("stats")]
         public async Task<ActionResult> GetStats()
         {
@@ -169,45 +161,40 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(new { });
         }
 
-        // ?? ﬁEH›R EKLE
         [HttpPost("sehir")]
         public async Task<ActionResult> AddSehir(Sehir model)
         {
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Kontrol: Var m˝?
             var checkCmd = new SqlCommand("SELECT SehirID FROM Sehir WHERE SehirAdi = @ad", conn);
             checkCmd.Parameters.AddWithValue("@ad", model.SehirAdi);
             var existingId = await checkCmd.ExecuteScalarAsync();
 
             if (existingId != null)
-                return Ok(new { SehirID = (int)existingId, Message = "ﬁehir zaten var, mevcut ID dˆn¸ld¸." });
+                return Ok(new { SehirID = (int)existingId, Message = "√ûehir zaten var, mevcut ID d√∂n√ºld√º." });
 
-            // Yoksa Ekle
             var sql = "INSERT INTO Sehir (SehirAdi) OUTPUT INSERTED.SehirID VALUES (@ad)";
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@ad", model.SehirAdi);
 
             var newId = (int)await cmd.ExecuteScalarAsync();
-            return Ok(new { SehirID = newId, Message = "Yeni ˛ehir eklendi." });
+            return Ok(new { SehirID = newId, Message = "Yeni √æehir eklendi." });
         }
 
-        // ?? ›L«E EKLE
         [HttpPost("ilce")]
         public async Task<ActionResult> AddIlce(Ilce model)
         {
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Kontrol: Bu ˛ehirde bu ilÁe var m˝?
             var checkCmd = new SqlCommand("SELECT IlceID FROM Ilce WHERE SehirID = @sid AND IlceAdi = @ad", conn);
             checkCmd.Parameters.AddWithValue("@sid", model.SehirID);
             checkCmd.Parameters.AddWithValue("@ad", model.IlceAdi);
             var existingId = await checkCmd.ExecuteScalarAsync();
 
             if (existingId != null)
-                return Ok(new { IlceID = (int)existingId, Message = "›lÁe zaten var." });
+                return Ok(new { IlceID = (int)existingId, Message = "√ùl√ße zaten var." });
 
             var sql = "INSERT INTO Ilce (SehirID, IlceAdi) OUTPUT INSERTED.IlceID VALUES (@sid, @ad)";
             using var cmd = new SqlCommand(sql, conn);
@@ -215,11 +202,10 @@ namespace EmlakYonetimAPI.Controllers
             cmd.Parameters.AddWithValue("@ad", model.IlceAdi);
 
             var newId = (int)await cmd.ExecuteScalarAsync();
-            return Ok(new { IlceID = newId, Message = "Yeni ilÁe eklendi." });
+            return Ok(new { IlceID = newId, Message = "Yeni il√ße eklendi." });
         }
 
-        // GENERIC HELPER (Kod tekrar˝n˝ ˆnlemek iÁin)
-        // Bu helper sadece bu controller iÁindeki basit listeler iÁin kullan˝labilir.
+
         private async Task<List<T>> FetchList<T>(string sql, Func<SqlDataReader, T> mapper)
         {
             var list = new List<T>();
