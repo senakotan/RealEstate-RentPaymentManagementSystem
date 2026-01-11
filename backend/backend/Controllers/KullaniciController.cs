@@ -9,7 +9,6 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class KullaniciController : ControllerBase
     {
-        // 1?? LÝSTELEME
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -38,7 +37,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2?? TEK KULLANICI GETÝR
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
@@ -61,18 +59,16 @@ namespace EmlakYonetimAPI.Controllers
                     AktifMi = reader.GetBoolean(6)
                 });
             }
-            return NotFound("Kullanýcý bulunamadý.");
+            return NotFound("KullanÃ½cÃ½ bulunamadÃ½.");
         }
 
-        // 3?? REGISTER (KAYIT OL - Rol Seçimli)
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDto model)
         {
             if (model == null) return BadRequest("Veri yok.");
-
-            // Güvenlik: Sadece izin verilen rolleri kabul et
+            
             if (model.Rol != "Owner" && model.Rol != "Tenant")
-                return BadRequest("Geçersiz rol seçimi.");
+                return BadRequest("GeÃ§ersiz rol seÃ§imi.");
 
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
@@ -80,16 +76,14 @@ namespace EmlakYonetimAPI.Controllers
 
             try
             {
-                // A. Email Kontrolü
                 string check = "SELECT COUNT(*) FROM Kullanici WHERE Email = @Email";
                 using (var cmdCheck = new SqlCommand(check, conn, trans))
                 {
                     cmdCheck.Parameters.AddWithValue("@Email", model.Email);
                     if ((int)await cmdCheck.ExecuteScalarAsync() > 0)
-                        return BadRequest("Bu E-posta zaten kayýtlý.");
+                        return BadRequest("Bu E-posta zaten kayÃ½tlÃ½.");
                 }
 
-                // B. Kullanýcýyý Ekle
                 string sqlUser = @"INSERT INTO Kullanici (AdSoyad, Email, SifreHash, Telefon, AktifMi, KayitTarihi) 
                                    OUTPUT INSERTED.KullaniciID
                                    VALUES (@Ad, @Email, @Sifre, @Tel, 1, GETDATE())";
@@ -104,7 +98,6 @@ namespace EmlakYonetimAPI.Controllers
                     userId = (int)await cmdUser.ExecuteScalarAsync();
                 }
 
-                // C. Seçilen Rolü Bul ve Ata
                 int roleId = 0;
                 using (var cmdRole = new SqlCommand("SELECT RolID FROM Rol WHERE RolAdi = @RolAdi", conn, trans))
                 {
@@ -124,7 +117,6 @@ namespace EmlakYonetimAPI.Controllers
                     }
                 }
 
-                // D. Eðer "Tenant" (Kiracý) ise, Kiraci tablosuna da profil aç
                 if (model.Rol == "Tenant")
                 {
                     string sqlKiraci = @"INSERT INTO Kiraci (KullaniciID, AktifMi) 
@@ -137,23 +129,21 @@ namespace EmlakYonetimAPI.Controllers
                 }
 
                 trans.Commit();
-                return Ok(new { Message = "Kayýt baþarýlý! Giriþ yapabilirsiniz." });
+                return Ok(new { Message = "KayÃ½t baÃ¾arÃ½lÃ½! GiriÃ¾ yapabilirsiniz." });
             }
             catch (Exception ex)
             {
                 trans.Rollback();
-                return BadRequest("Kayýt baþarýsýz: " + ex.Message);
+                return BadRequest("KayÃ½t baÃ¾arÃ½sÃ½z: " + ex.Message);
             }
         }
 
-        // 4?? GÜNCELLEME (Þifre Destekli)
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, [FromBody] Kullanici model)
         {
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // Eðer þifre gönderilmiþse (doluysa) güncelle, boþsa SQL sorgusuna katma (eski þifre kalsýn)
             string passClause = string.IsNullOrEmpty(model.SifreHash) ? "" : ", SifreHash=@Sifre";
 
             string sql = $@"
@@ -175,12 +165,11 @@ namespace EmlakYonetimAPI.Controllers
             }
 
             int aff = await cmd.ExecuteNonQueryAsync();
-            if (aff == 0) return NotFound("Kullanýcý bulunamadý.");
+            if (aff == 0) return NotFound("KullanÃ½cÃ½ bulunamadÃ½.");
 
-            return Ok(new { Message = "Kullanýcý bilgileri güncellendi." });
+            return Ok(new { Message = "KullanÃ½cÃ½ bilgileri gÃ¼ncellendi." });
         }
 
-        // 5?? SÝLME (Soft Delete)
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -190,19 +179,18 @@ namespace EmlakYonetimAPI.Controllers
             cmd.Parameters.AddWithValue("@id", id);
 
             int aff = await cmd.ExecuteNonQueryAsync();
-            if (aff == 0) return NotFound("Kullanýcý bulunamadý.");
+            if (aff == 0) return NotFound("KullanÃ½cÃ½ bulunamadÃ½.");
 
-            return Ok(new { Message = "Kullanýcý pasif yapýldý." });
+            return Ok(new { Message = "KullanÃ½cÃ½ pasif yapÃ½ldÃ½." });
         }
     }
 
-    // DTO Sýnýfý
     public class RegisterDto
     {
         public string AdSoyad { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Telefon { get; set; } = string.Empty;
         public string Sifre { get; set; } = string.Empty;
-        public string Rol { get; set; } = "Owner"; // Varsayýlan: Owner
+        public string Rol { get; set; } = "Owner"; 
     }
 }
