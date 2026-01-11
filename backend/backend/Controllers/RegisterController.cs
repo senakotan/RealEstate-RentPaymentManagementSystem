@@ -17,7 +17,6 @@ namespace EmlakYonetimAPI.Controllers
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // 1. Email Kontrolü
             string checkSql = "SELECT COUNT(*) FROM Kullanici WHERE Email = @Email";
             using (var checkCmd = new SqlCommand(checkSql, conn))
             {
@@ -26,7 +25,6 @@ namespace EmlakYonetimAPI.Controllers
                     return BadRequest("Bu email adresi zaten kayıtlı.");
             }
 
-            // 2. Kullanıcı Ekleme (Şifre şifrelenmeden kaydediliyor)
             string insertSql = @"
                 INSERT INTO Kullanici (AdSoyad, Email, SifreHash, Telefon, TCNo, AktifMi, KayitTarihi)
                 OUTPUT INSERTED.KullaniciID
@@ -43,10 +41,8 @@ namespace EmlakYonetimAPI.Controllers
                 userId = (int)await cmd.ExecuteScalarAsync();
             }
 
-            // 3. Rol Atama (Varsayılan: Owner veya Gelen Rol)
             string rolAdi = string.IsNullOrWhiteSpace(request.RolAdi) ? "Owner" : request.RolAdi;
 
-            // Rol ID'sini bul
             int? rolId = null;
             using (var roleCmd = new SqlCommand("SELECT RolID FROM Rol WHERE RolAdi = @Rol", conn))
             {
@@ -65,8 +61,7 @@ namespace EmlakYonetimAPI.Controllers
                     await assignCmd.ExecuteNonQueryAsync();
                 }
             }
-
-            // 4. Log Kaydı
+            
             try
             {
                 string logSql = "INSERT INTO Logkayit (KullaniciID, IslemTarihi, IslemTuru, TabloAdi, KayitID, Detay) VALUES (@uid, GETDATE(), 'REGISTER', 'Kullanici', @kid, @detay)";
