@@ -9,7 +9,6 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class KullaniciRolController : ControllerBase
     {
-        // POST api/KullaniciRol/assign
         [HttpPost("assign")]
         public async Task<ActionResult> AssignRole(KullaniciRol model)
         {
@@ -25,10 +24,9 @@ namespace EmlakYonetimAPI.Controllers
 
             await cmd.ExecuteNonQueryAsync();
 
-            return Ok("Rol kullanýcýya baþarýyla atandý.");
+            return Ok("Rol kullanÃ½cÃ½ya baÃ¾arÃ½yla atandÃ½.");
         }
-
-        // GET api/KullaniciRol/user/5 › Kullanýcýnýn rollerini getir
+        
         [HttpGet("user/{kullaniciId}")]
         public async Task<ActionResult> GetUserRoles(int kullaniciId)
         {
