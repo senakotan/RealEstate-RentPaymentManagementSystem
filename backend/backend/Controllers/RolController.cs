@@ -9,7 +9,6 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class RolController : ControllerBase
     {
-        // GET: api/rol
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rol>>> GetRoles()
         {
@@ -36,7 +35,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(roles);
         }
 
-        // POST: api/rol
         [HttpPost]
         public async Task<ActionResult> CreateRole(Rol model)
         {
