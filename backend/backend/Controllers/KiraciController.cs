@@ -9,7 +9,6 @@ namespace EmlakYonetimAPI.Controllers
     [ApiController]
     public class KiraciController : ControllerBase
     {
-        // 1️⃣ TÜM KİRACILAR (Kullanici bilgileri ile birlikte)
         [HttpGet]
         public async Task<ActionResult<IEnumerable<KiraciDetayDto>>> GetAll()
         {
@@ -33,7 +32,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 2️⃣ SAHİBİN KİRACILARI (Mülk Sahibine Özel Liste)
         [HttpGet("owner/{ownerId}")]
         public async Task<ActionResult> GetByOwner(int ownerId)
         {
@@ -76,7 +74,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 3️⃣ CREATE - KullaniciID ile Kiracı Oluştur
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CreateKiraciRequest request)
         {
@@ -95,7 +92,6 @@ namespace EmlakYonetimAPI.Controllers
             {
                 int kullaniciID = 0;
 
-                // 1. Kullanıcı kontrolü - Bu email ile kullanıcı var mı?
                 string checkUserSql = "SELECT KullaniciID FROM Kullanici WHERE Email = @Email";
                 using (var cmdCheck = new SqlCommand(checkUserSql, conn, trans))
                 {
@@ -106,7 +102,6 @@ namespace EmlakYonetimAPI.Controllers
                     {
                         kullaniciID = (int)res;
                         
-                        // Bu kullanıcı zaten kiracı mı?
                         string checkKiraciSql = "SELECT COUNT(*) FROM Kiraci WHERE KullaniciID = @KullaniciID";
                         using (var cmdCheckKiraci = new SqlCommand(checkKiraciSql, conn, trans))
                         {
@@ -122,7 +117,6 @@ namespace EmlakYonetimAPI.Controllers
                     }
                     else
                     {
-                        // Yeni kullanıcı oluştur
                         string insertUserSql = @"
                             INSERT INTO Kullanici (AdSoyad, Email, SifreHash, Telefon, TCNo, AktifMi, KayitTarihi) 
                             OUTPUT INSERTED.KullaniciID
@@ -139,8 +133,7 @@ namespace EmlakYonetimAPI.Controllers
                         }
                     }
                 }
-
-                // 2. Tenant rolü atama
+                
                 int tenantRoleId = 0;
                 using (var cmdRole = new SqlCommand("SELECT RolID FROM Rol WHERE RolAdi = 'Tenant'", conn, trans))
                 {
@@ -169,8 +162,6 @@ namespace EmlakYonetimAPI.Controllers
                         }
                     }
                 }
-
-                // 3. Kiracı kaydı oluştur
                 string insertKiraciSql = @"
                     INSERT INTO Kiraci (KullaniciID, AktifMi)
                     OUTPUT INSERTED.KiraciID
@@ -200,7 +191,6 @@ namespace EmlakYonetimAPI.Controllers
             }
         }
 
-        // 4️⃣ AKTİF KİRACILAR
         [HttpGet("aktif")]
         public async Task<ActionResult<IEnumerable<KiraciDetayDto>>> GetAktif()
         {
@@ -225,7 +215,6 @@ namespace EmlakYonetimAPI.Controllers
             return Ok(list);
         }
 
-        // 5️⃣ KİRACI DETAY (ID ile)
         [HttpGet("{id}")]
         public async Task<ActionResult<KiraciDetayDto>> GetById(int id)
         {
@@ -251,7 +240,6 @@ namespace EmlakYonetimAPI.Controllers
             return NotFound("Kiracı bulunamadı.");
         }
 
-        // 6️⃣ KULLANICI ID İLE KİRACI BUL
         [HttpGet("kullanici/{kullaniciId}")]
         public async Task<ActionResult<KiraciDetayDto>> GetByKullaniciId(int kullaniciId)
         {
@@ -277,7 +265,6 @@ namespace EmlakYonetimAPI.Controllers
             return NotFound("Kiracı bulunamadı.");
         }
 
-        // 7️⃣ KİRACI GÜNCELLE (AktifMi durumunu değiştir)
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, [FromBody] UpdateKiraciRequest request)
         {
@@ -300,7 +287,6 @@ namespace EmlakYonetimAPI.Controllers
                 return NotFound("Kiracı bulunamadı.");
         }
 
-        // 8️⃣ KİRACI SİL (Pasife Alma)
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -320,7 +306,6 @@ namespace EmlakYonetimAPI.Controllers
                 return NotFound("Kiracı bulunamadı.");
         }
 
-        // --- MAPPER ---
         private KiraciDetayDto MapToKiraciDetay(SqlDataReader r)
         {
             return new KiraciDetayDto
@@ -336,7 +321,6 @@ namespace EmlakYonetimAPI.Controllers
         }
     }
 
-    // Request Modelleri
     public class CreateKiraciRequest
     {
         public string AdSoyad { get; set; } = string.Empty;
