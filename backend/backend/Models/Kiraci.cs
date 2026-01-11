@@ -7,7 +7,7 @@ namespace EmlakYonetimAPI.Models
         public bool AktifMi { get; set; }
     }
 
-    // Kiracý detaylarý için DTO (Kullanici bilgileri ile birlikte)
+
     public class KiraciDetayDto
     {
         public int KiraciID { get; set; }
