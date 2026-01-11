@@ -18,11 +18,6 @@ namespace EmlakYonetimAPI.Controllers
             using var conn = Connection.GetConnection();
             await conn.OpenAsync();
 
-            // SQL Batch: Tüm sorguları tek bir string içinde ; ile ayırarak yazıyoruz.
-            // 1. Sorgu: Genel Sayaçlar (Tek satır döner)
-            // 2. Sorgu: Para Birimine Göre Bu Ayın Toplam Tahsilatı (USD: 1000, TRY: 50000 gibi)
-            // 3. Sorgu: Son 5 Hareket (Detaylı)
-
             string sql = @"
                 -- 1. GENEL SAYAÇLAR
                 SELECT 
@@ -68,7 +63,6 @@ namespace EmlakYonetimAPI.Controllers
 
             using var reader = await cmd.ExecuteReaderAsync();
 
-            // --- 1. SONUÇ KÜMESİ: SAYAÇLAR ---
             if (await reader.ReadAsync())
             {
                 result["MulkSayisi"] = reader["MulkSayisi"];
@@ -76,8 +70,7 @@ namespace EmlakYonetimAPI.Controllers
                 result["GecikmisOdeme"] = reader["GecikmisSayisi"];
             }
 
-            // --- 2. SONUÇ KÜMESİ: GELİR RAPORU ---
-            // Birden fazla sonuç kümesine geçmek için NextResult() kullanılır
+
             await reader.NextResultAsync();
             var gelirler = new List<object>();
             while (await reader.ReadAsync())
@@ -90,7 +83,7 @@ namespace EmlakYonetimAPI.Controllers
             }
             result["BuAyGelir"] = gelirler;
 
-            // --- 3. SONUÇ KÜMESİ: SON HAREKETLER ---
+
             await reader.NextResultAsync();
             var sonHareketler = new List<object>();
             while (await reader.ReadAsync())
@@ -162,7 +155,7 @@ namespace EmlakYonetimAPI.Controllers
             using var cmd = new SqlCommand(sql, conn);
             using var reader = await cmd.ExecuteReaderAsync();
 
-            // --- 1. SONUÇ KÜMESİ: SAYAÇLAR ---
+
             if (await reader.ReadAsync())
             {
                 result["ToplamKullanici"] = reader["ToplamKullanici"];
@@ -171,7 +164,7 @@ namespace EmlakYonetimAPI.Controllers
                 result["GecikmisOdeme"] = reader["GecikmisOdeme"];
             }
 
-            // --- 2. SONUÇ KÜMESİ: GELİR RAPORU ---
+
             await reader.NextResultAsync();
             var gelirler = new List<object>();
             while (await reader.ReadAsync())
@@ -184,7 +177,6 @@ namespace EmlakYonetimAPI.Controllers
             }
             result["BuAyGelir"] = gelirler;
 
-            // --- 3. SONUÇ KÜMESİ: SON HAREKETLER ---
             await reader.NextResultAsync();
             var sonHareketler = new List<object>();
             while (await reader.ReadAsync())
@@ -273,7 +265,6 @@ namespace EmlakYonetimAPI.Controllers
             cmd.Parameters.AddWithValue("@tenantId", tenantId);
             using var reader = await cmd.ExecuteReaderAsync();
 
-            // --- 1. SONUÇ KÜMESİ: AKTİF SÖZLEŞME ---
             if (await reader.ReadAsync())
             {
                 result["AktifSozlesme"] = new
@@ -290,7 +281,7 @@ namespace EmlakYonetimAPI.Controllers
                 };
             }
 
-            // --- 2. SONUÇ KÜMESİ: BEKLİYEN ÖDEMELER ---
+
             await reader.NextResultAsync();
             var bekleyenOdemeler = new List<object>();
             while (await reader.ReadAsync())
@@ -306,7 +297,7 @@ namespace EmlakYonetimAPI.Controllers
             }
             result["BekleyenOdemeler"] = bekleyenOdemeler;
 
-            // --- 3. SONUÇ KÜMESİ: SON ÖDEMELER ---
+
             await reader.NextResultAsync();
             var sonOdemeler = new List<object>();
             while (await reader.ReadAsync())
